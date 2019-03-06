@@ -60,15 +60,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    Text('2019/03',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 30)),
                     const ListTile(
-                      leading: Icon(Icons.album),
-                      title: Text('2019/03'),
-                      subtitle: Text('￥ 30,000'),
+                      leading: Icon(
+                        Icons.attach_money,
+                        size: 40.0,
+                        color: Colors.indigo,
+                      ),
+                      title: Text('30,000',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 20)),
+                      subtitle: Text('Cash',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 10)),
+                    ),
+                    const ListTile(
+                      leading: Icon(
+                        Icons.credit_card,
+                        size: 40.0,
+                        color: Colors.indigo,
+                      ),
+                      title: Text('30,000',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 20)),
+                      subtitle: Text('CreditCard',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 10)),
                     ),
                     ButtonTheme.bar(
                       // make buttons use the appropriate styles for cards
                       child: ButtonBar(
+                        alignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
+                          FlatButton(
+                            child: const Text('NEXT MONTH'),
+                            onPressed: () {/* ... */},
+                          ),
                           FlatButton(
                             child: const Text('PREV MONTH'),
                             onPressed: () {/* ... */},
