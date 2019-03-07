@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       title: Text('30,000',
                           textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 30)),
                       subtitle: Text('Cash',
                           textAlign: TextAlign.right,
                           style: TextStyle(fontSize: 10)),
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       title: Text('30,000',
                           textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 30)),
                       subtitle: Text('CreditCard',
                           textAlign: TextAlign.right,
                           style: TextStyle(fontSize: 10)),
@@ -114,17 +114,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 200,
                 child: ListView(
                   children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.map),
-                      title: Text('Map'),
+                    Card(
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            leading: Icon(Icons.map),
+                            title: Text('Map'),
+                          )
+                        ],
+                      ),
                     ),
-                    ListTile(
-                      leading: Icon(Icons.photo_album),
-                      title: Text('Album'),
+                    Card(
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            leading: Icon(Icons.phone),
+                            title: Text('Phone'),
+                          ),
+                        ],
+                      ),
                     ),
-                    ListTile(
-                      leading: Icon(Icons.phone),
-                      title: Text('Phone'),
+                    Card(
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            leading: Icon(Icons.photo_album),
+                            title: Text('Album'),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
