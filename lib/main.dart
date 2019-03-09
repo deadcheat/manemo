@@ -111,6 +111,25 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Expanded(
               child: new SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: 4,
+                    itemBuilder: (context, int index) {
+                      return Card(
+                        child: Column(
+                          children: <Widget>[
+                            ListTile(
+                              leading: Icon(Icons.map),
+                              title: Text('created ' + index.toString()),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  )),
+            ),
+            new Expanded(
+              child: new SizedBox(
                 height: 200,
                 child: ListView(
                   children: <Widget>[
