@@ -128,45 +128,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   )),
             ),
-            new Expanded(
-              child: new SizedBox(
-                height: 200,
-                child: ListView(
-                  children: <Widget>[
-                    Card(
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.map),
-                            title: Text('Map'),
-                          )
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.phone),
-                            title: Text('Phone'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.photo_album),
-                            title: Text('Album'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
           ]),
       floatingActionButton: new FloatingActionButton(
           backgroundColor: const Color(0xFF0099ed),
