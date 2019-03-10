@@ -136,5 +136,40 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void fabPressed() {}
+  final _formKey = GlobalKey<FormState>();
+  void fabPressed() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextFormField(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextFormField(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      child: Text("Submit"),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+                        }
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }
