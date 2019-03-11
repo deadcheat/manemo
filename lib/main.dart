@@ -137,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  String _dropdownValue = 'One';
   void fabPressed() {
     showDialog(
         context: context,
@@ -164,6 +165,24 @@ class _MyHomePageState extends State<MyHomePage> {
                           _formKey.currentState.save();
                         }
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButton<String>(
+                      value: _dropdownValue,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _dropdownValue = newValue;
+                        });
+                      },
+                      items: <String>['One', 'Two', 'Free', 'Four']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
                   )
                 ],
