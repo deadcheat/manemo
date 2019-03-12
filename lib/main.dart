@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+enum PaymentType { cash, credit }
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -18,15 +20,15 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Monemo(title: 'Monemo'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Monemo extends StatefulWidget {
+  Monemo({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -40,10 +42,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MonemoState createState() => _MonemoState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MonemoState extends State<Monemo> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -137,58 +139,44 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  String _dropdownValue = 'One';
   void fabPressed() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      child: Text("Submit"),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                        }
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButton<String>(
-                      value: _dropdownValue,
-                      onChanged: (String newValue) {
-                        setState(() {
-                          _dropdownValue = newValue;
-                        });
-                      },
-                      items: <String>['One', 'Two', 'Free', 'Four']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  )
-                ],
+    showDialog(context: context, builder: (_) => ManemoReceiptDialog());
+  }
+}
+
+class ManemoReceiptDialog extends StatefulWidget {
+  ManemoReceiptDialog({Key key}) : super(key: key);
+
+  @override
+  _ManemoReceiptDialogState createState() => new _ManemoReceiptDialogState();
+}
+
+class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
+  PaymentType _paymentType = PaymentType.cash;
+  void _setPaymentType(PaymentType value) =>
+      setState(() => _paymentType = value);
+  @override
+  Widget build(BuildContext context) {
+    return new SimpleDialog(children: <Widget>[
+      new Container(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              RadioListTile<PaymentType>(
+                title: const Text('Cash'),
+                value: PaymentType.cash,
+                groupValue: _paymentType,
+                onChanged: _setPaymentType,
               ),
-            ),
-          );
-        });
+              RadioListTile<PaymentType>(
+                title: const Text('Credit Card'),
+                value: PaymentType.credit,
+                groupValue: _paymentType,
+                onChanged: _setPaymentType,
+              ),
+            ],
+          ))
+    ]);
   }
 }
