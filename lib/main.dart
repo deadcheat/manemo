@@ -158,10 +158,9 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   @override
   Widget build(BuildContext context) {
     return new SimpleDialog(children: <Widget>[
-      new Container(
+      Container(
           padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
+          child: Column(
             children: <Widget>[
               RadioListTile<PaymentType>(
                 title: const Text('Cash'),
