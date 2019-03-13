@@ -162,6 +162,14 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Enter your username'),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                },
+              ),
               RadioListTile<PaymentType>(
                 title: const Text('Cash'),
                 value: PaymentType.cash,
