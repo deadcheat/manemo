@@ -169,6 +169,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                     return 'Please enter some text';
                   }
                 },
+                keyboardType: TextInputType.number,
               ),
               RadioListTile<PaymentType>(
                 title: const Text('Cash'),
