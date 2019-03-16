@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-enum PaymentType { cash, credit }
+enum PaymentType { cash, charge }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -87,12 +87,11 @@ class _MonemoState extends State<Monemo> {
                       title: Text('30,000',
                           textAlign: TextAlign.right,
                           style: TextStyle(fontSize: 30)),
-                      subtitle: Text('CreditCard',
+                      subtitle: Text('Charge',
                           textAlign: TextAlign.right,
                           style: TextStyle(fontSize: 10)),
                     ),
                     ButtonTheme.bar(
-                      // make buttons use the appropriate styles for cards
                       child: ButtonBar(
                         alignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -177,7 +176,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               Container(
                 alignment: Alignment.centerLeft,
                 child: new Text(
-                  'Payment Type',
+                  'Which did you pay by?',
                   style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
@@ -202,7 +201,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                     onChanged: _setPaymentType,
                   ),
                   new Text(
-                    'Credit',
+                    'Charge',
                     style: new TextStyle(
                       fontSize: 16.0,
                     ),
