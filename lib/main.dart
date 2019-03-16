@@ -207,10 +207,6 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                       fontSize: 16.0,
                     ),
                   ),
-                  new Text(
-                    'Omnivore',
-                    style: new TextStyle(fontSize: 16.0),
-                  ),
                 ],
               ),
             ],
