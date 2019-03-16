@@ -154,6 +154,13 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   PaymentType _paymentType = PaymentType.cash;
   void _setPaymentType(PaymentType value) =>
       setState(() => _paymentType = value);
+  void _handleVal(int newVal) {
+    setState(() {
+      _val = newVal;
+    });
+  }
+
+  int _val = 0;
   @override
   Widget build(BuildContext context) {
     return new SimpleDialog(children: <Widget>[
@@ -186,19 +193,19 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Radio<PaymentType>(
-                    value: PaymentType.cash,
-                    groupValue: _paymentType,
-                    onChanged: _setPaymentType,
+                  new Radio(
+                    value: 0,
+                    groupValue: _val,
+                    onChanged: _handleVal,
                   ),
                   new Text(
                     'Cash',
                     style: new TextStyle(fontSize: 16.0),
                   ),
-                  new Radio<PaymentType>(
-                    value: PaymentType.cash,
-                    groupValue: _paymentType,
-                    onChanged: _setPaymentType,
+                  new Radio(
+                    value: 1,
+                    groupValue: _val,
+                    onChanged: _handleVal,
                   ),
                   new Text(
                     'Charge',
