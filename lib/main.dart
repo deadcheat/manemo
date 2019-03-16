@@ -171,17 +171,47 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                 },
                 keyboardType: TextInputType.number,
               ),
-              RadioListTile<PaymentType>(
-                title: const Text('Cash'),
-                value: PaymentType.cash,
-                groupValue: _paymentType,
-                onChanged: _setPaymentType,
+              new Padding(
+                padding: new EdgeInsets.all(8.0),
               ),
-              RadioListTile<PaymentType>(
-                title: const Text('Credit Card'),
-                value: PaymentType.credit,
-                groupValue: _paymentType,
-                onChanged: _setPaymentType,
+              Container(
+                alignment: Alignment.centerLeft,
+                child: new Text(
+                  'Payment Type',
+                  style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Radio<PaymentType>(
+                    value: PaymentType.cash,
+                    groupValue: _paymentType,
+                    onChanged: _setPaymentType,
+                  ),
+                  new Text(
+                    'Cash',
+                    style: new TextStyle(fontSize: 16.0),
+                  ),
+                  new Radio<PaymentType>(
+                    value: PaymentType.cash,
+                    groupValue: _paymentType,
+                    onChanged: _setPaymentType,
+                  ),
+                  new Text(
+                    'Credit',
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  new Text(
+                    'Omnivore',
+                    style: new TextStyle(fontSize: 16.0),
+                  ),
+                ],
               ),
             ],
           ))
