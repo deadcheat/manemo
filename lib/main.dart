@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 void main() => runApp(MyApp());
 
@@ -158,6 +160,17 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     });
   }
 
+  String _numberValidator(String value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter some text';
+    }
+    final n = num.tryParse(value);
+    if (n == null) {
+      return '"$value" is not a valid number';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new SimpleDialog(children: <Widget>[
@@ -165,14 +178,29 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
+              Container(
+                alignment: Alignment.centerLeft,
+                child: new Text(
+                  'How much have you spent ?',
+                  style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Enter your username'),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                },
+                initialValue: '0.0',
+                controller: new MoneyMaskedTextController(
+                    initialValue: 0.0,
+                    thousandSeparator: ',',
+                    precision: 0,
+                    decimalSeparator: '',
+                    leftSymbol: '￥ '),
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                validator: _numberValidator,
                 keyboardType: TextInputType.number,
+                textAlign: TextAlign.right,
+                style: TextStyle(fontSize: 40.0),
               ),
               new Padding(
                 padding: new EdgeInsets.all(8.0),
