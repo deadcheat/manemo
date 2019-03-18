@@ -171,6 +171,13 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     return null;
   }
 
+  MoneyMaskedTextController _moneyMaskedTextController =
+      new MoneyMaskedTextController(
+          initialValue: 0.0,
+          thousandSeparator: ',',
+          precision: 0,
+          decimalSeparator: '',
+          leftSymbol: '￥ ');
   @override
   Widget build(BuildContext context) {
     return new SimpleDialog(children: <Widget>[
@@ -189,13 +196,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                 ),
               ),
               TextFormField(
-                initialValue: '0.0',
-                controller: new MoneyMaskedTextController(
-                    initialValue: 0.0,
-                    thousandSeparator: ',',
-                    precision: 0,
-                    decimalSeparator: '',
-                    leftSymbol: '￥ '),
+                controller: _moneyMaskedTextController,
                 inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 validator: _numberValidator,
                 keyboardType: TextInputType.number,
