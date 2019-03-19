@@ -199,7 +199,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                 controller: _moneyMaskedTextController,
                 inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 validator: _numberValidator,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 textAlign: TextAlign.right,
                 style: TextStyle(fontSize: 40.0),
               ),
