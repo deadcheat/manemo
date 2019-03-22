@@ -153,11 +153,35 @@ class ManemoReceiptDialog extends StatefulWidget {
 }
 
 class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
+  final myController = TextEditingController();
+  final currencyFormat = new NumberFormat("#,###", "ja_JP");
   PaymentType _paymentType = PaymentType.cash;
   void _setPaymentType(PaymentType newVal) {
     setState(() {
       _paymentType = newVal;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    myController.addListener(_printLatestValue);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    // This also removes the _printLatestValue listener
+    myController.dispose();
+    super.dispose();
+  }
+
+  _printLatestValue() {
+    final n = num.tryParse(myController.text);
+    final formattedValue = currencyFormat.format(n);
+    print("First text field: ${currencyFormat.format(n)}");
+    myController.text = formattedValue;
   }
 
   String _numberValidator(String value) {
@@ -189,6 +213,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                 ),
               ),
               TextFormField(
+                controller: myController,
                 decoration: InputDecoration(
                   prefix: Text("￥"),
                 ),
