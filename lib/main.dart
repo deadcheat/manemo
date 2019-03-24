@@ -165,7 +165,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   @override
   void initState() {
     super.initState();
-
+    myController.text = '0';
     myController.addListener(_printLatestValue);
   }
 
@@ -177,10 +177,20 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     super.dispose();
   }
 
+  String _previousValue;
+
   _printLatestValue() {
+    final value = myController.text;
+    if (value == _previousValue) {
+      return;
+    }
+    if (value == null || value.isEmpty) {
+      myController.text = '0';
+      return;
+    }
     final n = num.tryParse(myController.text);
     final formattedValue = currencyFormat.format(n);
-    print("First text field: ${currencyFormat.format(n)}");
+    _previousValue = formattedValue;
     myController.text = formattedValue;
   }
 
