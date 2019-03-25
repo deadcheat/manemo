@@ -131,8 +131,23 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                   ),
                 ],
               ),
+              calculateButton()
             ],
           ))
     ]);
   }
+
+  RaisedButton calculateButton() {
+    return RaisedButton(
+      onPressed: _calculator,
+      color: Colors.pinkAccent,
+      child: Text(
+        'Add',
+        style: TextStyle(fontSize: 16.9),
+      ),
+      textColor: Colors.white70,
+    );
+  }
+
+  void _calculator() {}
 }
