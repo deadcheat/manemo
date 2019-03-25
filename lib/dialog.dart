@@ -140,7 +140,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   RaisedButton calculateButton() {
     return RaisedButton(
       onPressed: _calculator,
-      color: Colors.pinkAccent,
+      color: Colors.green,
       child: Text(
         'Add',
         style: TextStyle(fontSize: 16.9),
