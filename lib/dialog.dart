@@ -131,15 +131,15 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                   ),
                 ],
               ),
-              calculateButton()
+              _addButton()
             ],
           ))
     ]);
   }
 
-  RaisedButton calculateButton() {
+  RaisedButton _addButton() {
     return RaisedButton(
-      onPressed: _calculator,
+      onPressed: _addReceipt,
       color: Colors.green,
       child: Text(
         'Add',
@@ -149,5 +149,5 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     );
   }
 
-  void _calculator() {}
+  void _addReceipt() {}
 }
