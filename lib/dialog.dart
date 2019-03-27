@@ -67,7 +67,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   Widget build(BuildContext context) {
     return new SimpleDialog(children: <Widget>[
       Container(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             children: <Widget>[
               Container(
@@ -107,7 +107,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                 ),
               ),
               new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   new Radio<PaymentType>(
                     value: PaymentType.cash,
@@ -116,7 +116,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                   ),
                   new Text(
                     'Cash',
-                    style: new TextStyle(fontSize: 16.0),
+                    style: new TextStyle(fontSize: 20.0),
                   ),
                   new Radio<PaymentType>(
                     value: PaymentType.charge,
@@ -126,7 +126,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                   new Text(
                     'Charge',
                     style: new TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 20.0,
                     ),
                   ),
                 ],
