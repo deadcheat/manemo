@@ -132,12 +132,11 @@ class _MonemoState extends State<Monemo> {
       floatingActionButton: new FloatingActionButton(
           backgroundColor: const Color(0xFF0099ed),
           child: new Icon(Icons.add_circle),
-          onPressed: fabPressed),
+          onPressed: openDialog),
     );
   }
 
-  final _formKey = GlobalKey<FormState>();
-  void fabPressed() {
+  void openDialog() {
     showDialog(context: context, builder: (_) => ManemoReceiptDialog());
   }
 }
