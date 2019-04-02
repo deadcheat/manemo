@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:manemo/paymenttype.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class ManemoReceiptDialog extends StatefulWidget {
   ManemoReceiptDialog({Key key}) : super(key: key);
@@ -13,6 +14,8 @@ class ManemoReceiptDialog extends StatefulWidget {
 class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   final myController = TextEditingController();
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
+  final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
+  DateTime date;
   PaymentType _paymentType = PaymentType.cash;
   void _setPaymentType(PaymentType newVal) {
     setState(() {
@@ -70,6 +73,16 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: <Widget>[
+              Container(
+                child: DateTimePickerFormField(
+                  inputType: InputType.date,
+                  format: DateFormat('yyyy-MM-dd'),
+                  editable: true,
+                  decoration: InputDecoration(
+                      labelText: 'Date/Time', hasFloatingPlaceholder: false),
+                  onChanged: (dt) => setState(() => date = dt),
+                ),
+              ),
               Container(
                 alignment: Alignment.centerLeft,
                 child: new Text(
