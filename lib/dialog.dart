@@ -74,10 +74,24 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           child: Column(
             children: <Widget>[
               Container(
+                alignment: Alignment.centerLeft,
+                child: new Text(
+                  'When have you spent ?',
+                  style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              Container(
                 child: DateTimePickerFormField(
                   inputType: InputType.date,
                   format: DateFormat('yyyy-MM-dd'),
                   editable: true,
+                  initialDate: new DateTime.now(),
+                  initialValue: new DateTime.now(),
+                  style: TextStyle(fontSize: 32.0),
+                  textAlign: TextAlign.justify,
                   decoration: InputDecoration(
                       labelText: 'Date/Time', hasFloatingPlaceholder: false),
                   onChanged: (dt) => setState(() => date = dt),
