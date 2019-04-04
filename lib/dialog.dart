@@ -91,7 +91,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                   initialDate: new DateTime.now(),
                   initialValue: new DateTime.now(),
                   style: TextStyle(fontSize: 32.0),
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.right,
                   decoration: InputDecoration(
                       labelText: 'Date/Time', hasFloatingPlaceholder: false),
                   onChanged: (dt) => setState(() => date = dt),
