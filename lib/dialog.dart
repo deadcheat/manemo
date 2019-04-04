@@ -15,7 +15,8 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   final myController = TextEditingController();
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
-  DateTime date;
+  DateTime paidDate;
+  DateTime toDate;
   PaymentType _paymentType = PaymentType.cash;
   void _setPaymentType(PaymentType newVal) {
     setState(() {
@@ -90,11 +91,40 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                   editable: true,
                   initialDate: new DateTime.now(),
                   initialValue: new DateTime.now(),
-                  style: TextStyle(fontSize: 32.0),
-                  textAlign: TextAlign.right,
+                  style: TextStyle(fontSize: 24.0),
+                  textAlign: TextAlign.center,
                   decoration: InputDecoration(
                       labelText: 'Date/Time', hasFloatingPlaceholder: false),
-                  onChanged: (dt) => setState(() => date = dt),
+                  onChanged: (dt) => setState(() => paidDate = dt),
+                ),
+              ),
+              Container(
+                child: ExpansionTile(
+                  title: new Text('pay continuously?',
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
+                      )),
+                  children: <Widget>[
+                    new Text(
+                      'when is the last payment date?',
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                    DateTimePickerFormField(
+                      inputType: InputType.date,
+                      format: DateFormat('yyyy-MM'),
+                      editable: true,
+                      style: TextStyle(fontSize: 20.0),
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                          labelText: 'Date/Time',
+                          hasFloatingPlaceholder: false),
+                      onChanged: (dt) => setState(() => toDate = dt),
+                    ),
+                  ],
                 ),
               ),
               Container(
