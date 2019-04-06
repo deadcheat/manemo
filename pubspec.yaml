@@ -28,6 +28,7 @@ dependencies:
   sqflite: ^1.1.0
   path_provider:
   datetime_picker_formfield: ^0.1.8
+  month_picker_dialog: ^0.0.8
 
   intl:
   intl_translation:
