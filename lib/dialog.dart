@@ -16,7 +16,8 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
   DateTime paidDate;
-  DateTime toDate;
+  DateTime toMonth;
+  DateTime payDay;
   PaymentType _paymentType = PaymentType.cash;
   void _setPaymentType(PaymentType newVal) {
     setState(() {
@@ -107,7 +108,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                       )),
                   children: <Widget>[
                     new Text(
-                      'when is the last payment date?',
+                      'when is the last payment month?',
                       style: new TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14.0,
@@ -122,7 +123,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                       decoration: InputDecoration(
                           labelText: 'Date/Time',
                           hasFloatingPlaceholder: false),
-                      onChanged: (dt) => setState(() => toDate = dt),
+                      onChanged: (dt) => setState(() => toMonth = dt),
                     ),
                   ],
                 ),
