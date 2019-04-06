@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:manemo/paymenttype.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class ManemoReceiptDialog extends StatefulWidget {
   ManemoReceiptDialog({Key key}) : super(key: key);
@@ -16,7 +17,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
   DateTime paidDate;
-  DateTime toMonth;
+  DateTime lastMonth;
   DateTime payDay;
   PaymentType _paymentType = PaymentType.cash;
   void _setPaymentType(PaymentType newVal) {
@@ -78,7 +79,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               Container(
                 alignment: Alignment.centerLeft,
                 child: new Text(
-                  'When have you spent ?',
+                  'Date',
                   style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
@@ -100,38 +101,9 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                 ),
               ),
               Container(
-                child: ExpansionTile(
-                  title: new Text('pay continuously?',
-                      style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
-                      )),
-                  children: <Widget>[
-                    new Text(
-                      'when is the last payment month?',
-                      style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                    DateTimePickerFormField(
-                      inputType: InputType.date,
-                      format: DateFormat('yyyy-MM'),
-                      editable: true,
-                      style: TextStyle(fontSize: 20.0),
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          labelText: 'Date/Time',
-                          hasFloatingPlaceholder: false),
-                      onChanged: (dt) => setState(() => toMonth = dt),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
                 alignment: Alignment.centerLeft,
                 child: new Text(
-                  'How much have you spent ?',
+                  'Total',
                   style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
@@ -193,6 +165,13 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
             ],
           ))
     ]);
+  }
+
+  void _showMonthDialog() {
+    showMonthPicker(context: context, initialDate: lastMonth ?? DateTime.now())
+        .then((date) => setState(() {
+              lastMonth = date;
+            }));
   }
 
   RaisedButton _addButton() {
