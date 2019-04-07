@@ -138,6 +138,12 @@ class _MonemoState extends State<Monemo> {
   }
 
   void openDialog() {
-    showDialog(context: context, builder: (_) => ManemoReceiptDialog());
+    // showDialog(context: context, builder: (_) => ManemoReceiptDialog());
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          settings: RouteSettings(name: "/payments/register"),
+          builder: (BuildContext context) => ManemoReceiptDialog()),
+    );
   }
 }
