@@ -177,7 +177,8 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
                       ),
                     ],
                   ),
-                  _addButton()
+                  _addButton(),
+                  _cancelButton(),
                 ],
               ),
             ),
@@ -192,6 +193,20 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
         .then((date) => setState(() {
               lastMonth = date;
             }));
+  }
+
+  RaisedButton _cancelButton() {
+    return RaisedButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      color: Colors.blueGrey[100],
+      child: Text(
+        'Cancel',
+        style: TextStyle(fontSize: 16.9),
+      ),
+      textColor: Colors.white70,
+    );
   }
 
   RaisedButton _addButton() {
