@@ -74,6 +74,9 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     var registerOnceTab = Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
@@ -160,8 +163,22 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               ),
             ],
           ),
-          _addButton(),
-          _cancelButton(),
+          SizedBox(height: 100.0),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // TODO: this calculation is strange
+              children: <Widget>[
+                Container(
+                  width: (MediaQuery.of(context).size.width) / 2 - 30,
+                  child: _cancelButton(),
+                ),
+                Container(
+                    width: (MediaQuery.of(context).size.width) / 2 - 30,
+                    child: _addButton()),
+              ],
+            ),
+          ),
         ],
       ),
     );
