@@ -71,8 +71,110 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var registerOnceTab = Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Date',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          Container(
+            child: DateTimePickerFormField(
+              inputType: InputType.date,
+              format: DateFormat('yyyy-MM-dd'),
+              editable: true,
+              initialDate: new DateTime.now(),
+              initialValue: new DateTime.now(),
+              style: TextStyle(fontSize: 24.0),
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                  labelText: 'Date/Time', hasFloatingPlaceholder: false),
+              onChanged: (dt) => setState(() => paidDate = dt),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Total',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          TextFormField(
+            controller: myController,
+            decoration: InputDecoration(
+              prefix: Text("￥"),
+            ),
+            inputFormatters: [
+              WhitelistingTextInputFormatter.digitsOnly,
+            ],
+            validator: _numberValidator,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            textAlign: TextAlign.right,
+            style: TextStyle(fontSize: 40.0),
+          ),
+          new Padding(
+            padding: new EdgeInsets.all(8.0),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Which did you pay by?',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Radio<PaymentType>(
+                value: PaymentType.cash,
+                groupValue: _paymentType,
+                onChanged: _setPaymentType,
+              ),
+              new Text(
+                'Cash',
+                style: new TextStyle(fontSize: 20.0),
+              ),
+              new Radio<PaymentType>(
+                value: PaymentType.charge,
+                groupValue: _paymentType,
+                onChanged: _setPaymentType,
+              ),
+              new Text(
+                'Charge',
+                style: new TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+            ],
+          ),
+          _addButton(),
+          _cancelButton(),
+        ],
+      ),
+    );
+    var registerContinuousTab = Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: <Widget>[
+          Text('tab2'),
+        ],
+      ),
+    );
     return new DefaultTabController(
-      length: 1,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text('regsiter payment'),
@@ -80,108 +182,17 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
             tabs: <Widget>[
               Tab(
                 text: 'tab 1',
-              )
+              ),
+              Tab(
+                text: 'tab 2',
+              ),
             ],
           ),
         ),
         body: TabBarView(
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: new Text(
-                      'Date',
-                      style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: DateTimePickerFormField(
-                      inputType: InputType.date,
-                      format: DateFormat('yyyy-MM-dd'),
-                      editable: true,
-                      initialDate: new DateTime.now(),
-                      initialValue: new DateTime.now(),
-                      style: TextStyle(fontSize: 24.0),
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                          labelText: 'Date/Time',
-                          hasFloatingPlaceholder: false),
-                      onChanged: (dt) => setState(() => paidDate = dt),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: new Text(
-                      'Total',
-                      style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: myController,
-                    decoration: InputDecoration(
-                      prefix: Text("￥"),
-                    ),
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter.digitsOnly,
-                    ],
-                    validator: _numberValidator,
-                    keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 40.0),
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.all(8.0),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: new Text(
-                      'Which did you pay by?',
-                      style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Radio<PaymentType>(
-                        value: PaymentType.cash,
-                        groupValue: _paymentType,
-                        onChanged: _setPaymentType,
-                      ),
-                      new Text(
-                        'Cash',
-                        style: new TextStyle(fontSize: 20.0),
-                      ),
-                      new Radio<PaymentType>(
-                        value: PaymentType.charge,
-                        groupValue: _paymentType,
-                        onChanged: _setPaymentType,
-                      ),
-                      new Text(
-                        'Charge',
-                        style: new TextStyle(
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  _addButton(),
-                  _cancelButton(),
-                ],
-              ),
-            ),
+            registerOnceTab,
+            registerContinuousTab,
           ],
         ),
       ),
