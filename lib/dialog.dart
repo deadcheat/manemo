@@ -139,30 +139,56 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
             ),
           ),
           new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Radio<PaymentType>(
-                value: PaymentType.cash,
-                groupValue: _paymentType,
-                onChanged: _setPaymentType,
+              new Flexible(
+                child: new RadioListTile<PaymentType>(
+                  value: PaymentType.cash,
+                  groupValue: _paymentType,
+                  onChanged: _setPaymentType,
+                  title: new Text(
+                    'Cash',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
               ),
-              new Text(
-                'Cash',
-                style: new TextStyle(fontSize: 20.0),
-              ),
-              new Radio<PaymentType>(
-                value: PaymentType.charge,
-                groupValue: _paymentType,
-                onChanged: _setPaymentType,
-              ),
-              new Text(
-                'Charge',
-                style: new TextStyle(
-                  fontSize: 20.0,
+              new Flexible(
+                child: new RadioListTile<PaymentType>(
+                  value: PaymentType.charge,
+                  groupValue: _paymentType,
+                  onChanged: _setPaymentType,
+                  title: new Text(
+                    'Charge',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
                 ),
               ),
             ],
           ),
+          // new Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: <Widget>[
+          //     new Radio<PaymentType>(
+          //       value: PaymentType.cash,
+          //       groupValue: _paymentType,
+          //       onChanged: _setPaymentType,
+          //     ),
+          //     new Text(
+          //       'Cash',
+          //       style: new TextStyle(fontSize: 20.0),
+          //     ),
+          //     new Radio<PaymentType>(
+          //       value: PaymentType.charge,
+          //       groupValue: _paymentType,
+          //       onChanged: _setPaymentType,
+          //     ),
+          //     new Text(
+          //       'Charge',
+          //       style: new TextStyle(
+          //         fontSize: 20.0,
+          //       ),
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 100.0),
           Container(
             child: Row(
@@ -170,11 +196,13 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               // TODO: this calculation is strange
               children: <Widget>[
                 Container(
-                  width: (MediaQuery.of(context).size.width) / 2 - 30,
+                  height: 50.0,
+                  width: (MediaQuery.of(context).size.width) * 0.4,
                   child: _cancelButton(),
                 ),
                 Container(
-                    width: (MediaQuery.of(context).size.width) / 2 - 30,
+                    height: 50.0,
+                    width: (MediaQuery.of(context).size.width) * 0.4,
                     child: _addButton()),
               ],
             ),
