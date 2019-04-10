@@ -95,10 +95,10 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               editable: true,
               initialDate: new DateTime.now(),
               initialValue: new DateTime.now(),
-              style: TextStyle(fontSize: 24.0),
+              style: TextStyle(fontSize: 40.0),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                  labelText: 'Date/Time', hasFloatingPlaceholder: false),
+                  labelText: 'Date', hasFloatingPlaceholder: false),
               onChanged: (dt) => setState(() => paidDate = dt),
             ),
           ),
