@@ -1,39 +1,47 @@
 import 'dart:convert';
 
-Monemo receiptFromJson(String str) {
+Receipt receiptFromJson(String str) {
   final jsonData = json.decode(str);
-  return Monemo.fromJson(jsonData);
+  return Receipt.fromJson(jsonData);
 }
 
-String receiptToJson(Monemo data) {
-  final dyn = data.toJson();
+String receiptToJson(Receipt data) {
+  final dyn = data.toMap();
   return json.encode(dyn);
 }
 
-class Monemo {
+class Receipt {
   int id;
   int utime;
   String description;
+  int price;
+  int continuationType;
   int paymentType;
 
-  Monemo({
+  Receipt({
     this.id,
     this.utime,
     this.description,
+    this.price,
+    this.continuationType,
     this.paymentType,
   });
 
-  factory Monemo.fromJson(Map<String, dynamic> json) => new Monemo(
+  factory Receipt.fromJson(Map<String, dynamic> json) => new Receipt(
         id: json["id"],
         utime: json["utime"],
         description: json["description"],
+        price: json["price"],
+        continuationType: json["continuation_type"],
         paymentType: json["payment_type"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "id": id,
         "utime": utime,
         "description": description,
+        "price": price,
+        "continuation_type": paymentType,
         "payment_type": paymentType,
       };
 }
