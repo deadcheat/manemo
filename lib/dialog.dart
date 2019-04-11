@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:manemo/paymenttype.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:manemo/database.dart';
 
 class ManemoReceiptDialog extends StatefulWidget {
   ManemoReceiptDialog({Key key}) : super(key: key);
@@ -20,6 +21,8 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   DateTime lastMonth;
   DateTime payDay;
   PaymentType _paymentType = PaymentType.cash;
+  final _dbProvider = ManemoDBProvider.db;
+
   void _setPaymentType(PaymentType newVal) {
     setState(() {
       _paymentType = newVal;
@@ -164,31 +167,6 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               ),
             ],
           ),
-          // new Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: <Widget>[
-          //     new Radio<PaymentType>(
-          //       value: PaymentType.cash,
-          //       groupValue: _paymentType,
-          //       onChanged: _setPaymentType,
-          //     ),
-          //     new Text(
-          //       'Cash',
-          //       style: new TextStyle(fontSize: 20.0),
-          //     ),
-          //     new Radio<PaymentType>(
-          //       value: PaymentType.charge,
-          //       groupValue: _paymentType,
-          //       onChanged: _setPaymentType,
-          //     ),
-          //     new Text(
-          //       'Charge',
-          //       style: new TextStyle(
-          //         fontSize: 20.0,
-          //       ),
-          //     ),
-          //   ],
-          // ),
           SizedBox(height: 100.0),
           Container(
             child: Row(
