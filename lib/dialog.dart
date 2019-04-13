@@ -14,7 +14,8 @@ class ManemoReceiptDialog extends StatefulWidget {
 }
 
 class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
-  final myController = TextEditingController();
+  final priceTextController = TextEditingController();
+  final dateTextController = TextEditingController();
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
   DateTime paidDate;
@@ -32,33 +33,34 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   @override
   void initState() {
     super.initState();
-    myController.text = '0';
-    myController.addListener(_printLatestValue);
+    priceTextController.text = '0';
+    priceTextController.addListener(_printLatestValue);
   }
 
   @override
   void dispose() {
     // Clean up the controller when the Widget is removed from the Widget tree
     // This also removes the _printLatestValue listener
-    myController.dispose();
+    priceTextController.dispose();
+    dateTextController.dispose();
     super.dispose();
   }
 
   String _previousValue;
 
   _printLatestValue() {
-    final value = myController.text;
+    final value = priceTextController.text;
     if (value == _previousValue) {
       return;
     }
     if (value == null || value.isEmpty) {
-      myController.text = '0';
+      priceTextController.text = '0';
       return;
     }
-    final n = num.tryParse(myController.text);
+    final n = num.tryParse(priceTextController.text);
     final formattedValue = currencyFormat.format(n);
     _previousValue = formattedValue;
-    myController.text = formattedValue;
+    priceTextController.text = formattedValue;
   }
 
   String _numberValidator(String value) {
@@ -95,6 +97,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
             child: DateTimePickerFormField(
               inputType: InputType.date,
               format: DateFormat('yyyy-MM-dd'),
+              controller: dateTextController,
               editable: true,
               initialDate: new DateTime.now(),
               initialValue: new DateTime.now(),
@@ -116,7 +119,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
             ),
           ),
           TextFormField(
-            controller: myController,
+            controller: priceTextController,
             decoration: InputDecoration(
               prefix: Text("￥"),
             ),
