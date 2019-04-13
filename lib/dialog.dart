@@ -204,10 +204,10 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
-                text: 'tab 1',
+                text: 'one-time',
               ),
               Tab(
-                text: 'tab 2',
+                text: 'regularly',
               ),
             ],
           ),
