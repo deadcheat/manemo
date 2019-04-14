@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:manemo/paymenttype.dart';
+import 'package:manemo/enum.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:manemo/database.dart';
@@ -24,11 +24,18 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   DateTime lastMonth;
   DateTime payDay;
   PaymentType _paymentType = PaymentType.cash;
+  BalanceType _balanceType = BalanceType.expenses;
   final _dbProvider = ManemoDBProvider.db;
 
   void _setPaymentType(PaymentType newVal) {
     setState(() {
       _paymentType = newVal;
+    });
+  }
+
+  void _setBalanceType(BalanceType newVal) {
+    setState(() {
+      _balanceType = newVal;
     });
   }
 
@@ -89,6 +96,42 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'incomes or expenses',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          new Row(
+            children: <Widget>[
+              new Flexible(
+                child: new RadioListTile<BalanceType>(
+                  value: BalanceType.incomes,
+                  groupValue: _balanceType,
+                  onChanged: _setBalanceType,
+                  title: new Text(
+                    'Incomes',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+              new Flexible(
+                child: new RadioListTile<BalanceType>(
+                  value: BalanceType.expenses,
+                  groupValue: _balanceType,
+                  onChanged: _setBalanceType,
+                  title: new Text(
+                    'Expenses',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
@@ -159,7 +202,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Which did you pay by?',
+              'Cash or Charge',
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
