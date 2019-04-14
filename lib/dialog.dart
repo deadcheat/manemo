@@ -19,7 +19,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   final dateTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
-  final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
+  final dateFormat = DateFormat('yyyy-MM-dd');
   DateTime paidDate;
   DateTime lastMonth;
   DateTime payDay;
@@ -37,6 +37,9 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     super.initState();
     priceTextController.text = '0';
     priceTextController.addListener(_printLatestValue);
+    var now = DateTime.now();
+    paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
+    dateTextController.text = dateFormat.format(paidDate);
   }
 
   @override
@@ -101,13 +104,11 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               inputType: InputType.date,
               format: DateFormat('yyyy-MM-dd'),
               controller: dateTextController,
-              editable: true,
+              editable: false,
               initialDate: new DateTime.now(),
               initialValue: new DateTime.now(),
               style: TextStyle(fontSize: 40.0),
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                  labelText: 'Date', hasFloatingPlaceholder: false),
               onChanged: (dt) => setState(() => paidDate = dt),
             ),
           ),
@@ -146,7 +147,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           ),
           TextFormField(
             controller: descriptionTextController,
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.right,
             style: TextStyle(fontSize: 40.0),
           ),
           new Padding(
@@ -192,7 +193,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // TODO: this calculation is strange
+              // FIXME: this calculation is strange
               children: <Widget>[
                 Container(
                   height: 50.0,
@@ -276,5 +277,15 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     );
   }
 
-  void _addReceipt() {}
+  void _addReceipt() {
+    var newReceipt = new Receipt(
+      utime: paidDate.millisecondsSinceEpoch,
+      price: num.tryParse(priceTextController.text),
+      description: descriptionTextController.text,
+    );
+    // DEBUG: delete finally
+    print(paidDate.toString());
+    print(newReceipt.toMap());
+    // _dbProvider.newReceipt(newReceipt);
+  }
 }
