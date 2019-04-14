@@ -1,0 +1,1 @@
+enum BalanceType { onetime, regularly }
