@@ -1,1 +1,0 @@
-enum PaymentType { cash, charge }
