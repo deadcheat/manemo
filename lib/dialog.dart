@@ -85,9 +85,9 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     var registerOnceTab = Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
@@ -145,10 +145,13 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
               ),
             ),
           ),
-          TextFormField(
-            controller: descriptionTextController,
-            textAlign: TextAlign.right,
-            style: TextStyle(fontSize: 40.0),
+          Container(
+            width: double.infinity,
+            child: TextFormField(
+              controller: descriptionTextController,
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 40.0),
+            ),
           ),
           new Padding(
             padding: new EdgeInsets.all(8.0),
