@@ -5,6 +5,7 @@ import 'package:manemo/paymenttype.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:manemo/database.dart';
+import 'package:manemo/model.dart';
 
 class ManemoReceiptDialog extends StatefulWidget {
   ManemoReceiptDialog({Key key}) : super(key: key);
@@ -16,6 +17,7 @@ class ManemoReceiptDialog extends StatefulWidget {
 class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
   final priceTextController = TextEditingController();
   final dateTextController = TextEditingController();
+  final descriptionTextController = TextEditingController();
   final currencyFormat = new NumberFormat("#,###", "ja_JP");
   final dateFormat = DateFormat("EEEE, MMMM d, yyyy 'at' h:mma");
   DateTime paidDate;
@@ -43,6 +45,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     // This also removes the _printLatestValue listener
     priceTextController.dispose();
     dateTextController.dispose();
+    descriptionTextController.dispose();
     super.dispose();
   }
 
@@ -129,6 +132,21 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
             validator: _numberValidator,
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             textAlign: TextAlign.right,
+            style: TextStyle(fontSize: 40.0),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Description',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          TextFormField(
+            controller: descriptionTextController,
+            textAlign: TextAlign.left,
             style: TextStyle(fontSize: 40.0),
           ),
           new Padding(
