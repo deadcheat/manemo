@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manemo/receipttab.dart';
+import 'package:manemo/receipttabbase.dart';
 
 void main() => runApp(MyApp());
 
