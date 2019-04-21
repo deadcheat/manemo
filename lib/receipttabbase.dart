@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:manemo/enum.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/model.dart';
 
@@ -259,11 +258,171 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     var registerContinuousTab = Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text('tab2'),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'incomes or expenses',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          new Row(
+            children: <Widget>[
+              new Flexible(
+                child: new RadioListTile<BalanceType>(
+                  value: BalanceType.incomes,
+                  groupValue: _balanceType,
+                  onChanged: _setBalanceType,
+                  title: new Text(
+                    'Incomes',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+              new Flexible(
+                child: new RadioListTile<BalanceType>(
+                  value: BalanceType.expenses,
+                  groupValue: _balanceType,
+                  onChanged: _setBalanceType,
+                  title: new Text(
+                    'Expenses',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Date',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          Container(
+            child: DateTimePickerFormField(
+              inputType: InputType.date,
+              format: DateFormat('yyyy-MM-dd'),
+              controller: dateTextController,
+              editable: false,
+              initialDate: new DateTime.now(),
+              initialValue: new DateTime.now(),
+              style: TextStyle(fontSize: 40.0),
+              textAlign: TextAlign.center,
+              onChanged: (dt) => setState(() => paidDate = dt),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Total',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          TextFormField(
+            controller: priceTextController,
+            decoration: InputDecoration(
+              prefix: Text("￥"),
+            ),
+            inputFormatters: [
+              WhitelistingTextInputFormatter.digitsOnly,
+            ],
+            validator: _numberValidator,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            textAlign: TextAlign.right,
+            style: TextStyle(fontSize: 40.0),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Description',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            child: TextFormField(
+              controller: descriptionTextController,
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 40.0),
+            ),
+          ),
+          new Padding(
+            padding: new EdgeInsets.all(8.0),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              'Cash or Charge',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          new Row(
+            children: <Widget>[
+              new Flexible(
+                child: new RadioListTile<PaymentType>(
+                  value: PaymentType.cash,
+                  groupValue: _paymentType,
+                  onChanged: _setPaymentType,
+                  title: new Text(
+                    'Cash',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+              new Flexible(
+                child: new RadioListTile<PaymentType>(
+                  value: PaymentType.charge,
+                  groupValue: _paymentType,
+                  onChanged: _setPaymentType,
+                  title: new Text(
+                    'Charge',
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 100.0),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // FIXME: this calculation is strange
+              children: <Widget>[
+                Container(
+                  height: 50.0,
+                  width: (MediaQuery.of(context).size.width) * 0.4,
+                  child: _cancelButton(),
+                ),
+                Container(
+                    height: 50.0,
+                    width: (MediaQuery.of(context).size.width) * 0.4,
+                    child: _addButton()),
+              ],
+            ),
+          ),
         ],
       ),
     );
+
     return new DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -288,13 +447,6 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
         ),
       ),
     );
-  }
-
-  void _showMonthTabview() {
-    showMonthPicker(context: context, initialDate: lastMonth ?? DateTime.now())
-        .then((date) => setState(() {
-              lastMonth = date;
-            }));
   }
 
   RaisedButton _cancelButton() {
