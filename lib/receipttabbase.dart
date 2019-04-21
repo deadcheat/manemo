@@ -7,14 +7,14 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/model.dart';
 
-class ManemoReceiptDialog extends StatefulWidget {
-  ManemoReceiptDialog({Key key}) : super(key: key);
+class ManemoReceiptTabview extends StatefulWidget {
+  ManemoReceiptTabview({Key key}) : super(key: key);
 
   @override
-  _ManemoReceiptDialogState createState() => new _ManemoReceiptDialogState();
+  _ManemoReceiptTabviewState createState() => new _ManemoReceiptTabviewState();
 }
 
-class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
+class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   final priceTextController = TextEditingController();
   final dateTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
@@ -290,7 +290,7 @@ class _ManemoReceiptDialogState extends State<ManemoReceiptDialog> {
     );
   }
 
-  void _showMonthDialog() {
+  void _showMonthTabview() {
     showMonthPicker(context: context, initialDate: lastMonth ?? DateTime.now())
         .then((date) => setState(() {
               lastMonth = date;

@@ -123,7 +123,7 @@ class _MonemoState extends State<Monemo> {
       context,
       MaterialPageRoute(
           settings: RouteSettings(name: "/payments/register"),
-          builder: (BuildContext context) => ManemoReceiptDialog()),
+          builder: (BuildContext context) => ManemoReceiptTabview()),
     );
   }
 }
