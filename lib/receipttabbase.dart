@@ -248,7 +248,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 Container(
                     height: 50.0,
                     width: (MediaQuery.of(context).size.width) * 0.4,
-                    child: _addButton()),
+                    child: _addOneTimeReceiptButton()),
               ],
             ),
           ),
@@ -415,7 +415,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 Container(
                     height: 50.0,
                     width: (MediaQuery.of(context).size.width) * 0.4,
-                    child: _addButton()),
+                    child: _addOneTimeReceiptButton()),
               ],
             ),
           ),
@@ -463,9 +463,9 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     );
   }
 
-  RaisedButton _addButton() {
+  RaisedButton _addOneTimeReceiptButton() {
     return RaisedButton(
-      onPressed: _addReceipt,
+      onPressed: _addOneTimeReceipt,
       color: Colors.green,
       child: Text(
         'Add',
@@ -475,15 +475,20 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     );
   }
 
-  void _addReceipt() {
+  void _addOneTimeReceipt() {
+    var priceVal = currencyFormat.parse(priceTextController.text);
     var newReceipt = new Receipt(
       utime: paidDate.millisecondsSinceEpoch,
-      price: num.tryParse(priceTextController.text),
+      price: priceVal.toInt(),
       description: descriptionTextController.text,
+      continuationType: ContinuationType.onetime.index,
+      paymentType: _paymentType.index,
     );
     // DEBUG: delete finally
+    print(priceTextController.text);
     print(paidDate.toString());
     print(newReceipt.toMap());
+
     // _dbProvider.newReceipt(newReceipt);
   }
 }

@@ -41,7 +41,7 @@ class Receipt {
         "utime": utime,
         "description": description,
         "price": price,
-        "continuation_type": paymentType,
+        "continuation_type": continuationType,
         "payment_type": paymentType,
       };
 }
