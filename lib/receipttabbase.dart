@@ -485,10 +485,6 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       continuationType: ContinuationType.onetime.index,
       paymentType: _paymentType.index,
     );
-    // DEBUG: delete finally
-    print(priceTextController.text);
-    print(paidDate.toString());
-    print(newReceipt.toMap());
     _dbProvider.newReceipt(newReceipt);
   }
 }
