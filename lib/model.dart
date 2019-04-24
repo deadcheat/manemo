@@ -2,7 +2,7 @@ import 'dart:convert';
 
 Receipt receiptFromJson(String str) {
   final jsonData = json.decode(str);
-  return Receipt.fromJson(jsonData);
+  return Receipt.fromMap(jsonData);
 }
 
 String receiptToJson(Receipt data) {
@@ -27,13 +27,13 @@ class Receipt {
     this.paymentType,
   });
 
-  factory Receipt.fromJson(Map<String, dynamic> json) => new Receipt(
-        id: json["id"],
-        utime: json["utime"],
-        description: json["description"],
-        price: json["price"],
-        continuationType: json["continuation_type"],
-        paymentType: json["payment_type"],
+  factory Receipt.fromMap(Map<String, dynamic> m) => new Receipt(
+        id: m["id"],
+        utime: m["utime"],
+        description: m["description"],
+        price: m["price"],
+        continuationType: m["continuation_type"],
+        paymentType: m["payment_type"],
       );
 
   Map<String, dynamic> toMap() => {
