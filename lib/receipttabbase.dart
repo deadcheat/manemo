@@ -5,6 +5,7 @@ import 'package:manemo/enum.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/model.dart';
+import 'package:sqflite/sqflite.dart';
 
 class ManemoReceiptTabview extends StatefulWidget {
   ManemoReceiptTabview({Key key}) : super(key: key);
@@ -488,7 +489,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     print(priceTextController.text);
     print(paidDate.toString());
     print(newReceipt.toMap());
-
-    // _dbProvider.newReceipt(newReceipt);
+    Sqflite.devSetDebugModeOn(true);
+    _dbProvider.newReceipt(newReceipt);
   }
 }
