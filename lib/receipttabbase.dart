@@ -489,7 +489,6 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     print(priceTextController.text);
     print(paidDate.toString());
     print(newReceipt.toMap());
-    Sqflite.devSetDebugModeOn(true);
     _dbProvider.newReceipt(newReceipt);
   }
 }
