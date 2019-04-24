@@ -24,6 +24,18 @@ class ManemoDBProvider {
     return res;
   }
 
+  listReceipts(int year, int month) async {
+    var firstDayOfMonth = new DateTime(year, month);
+    var lastDayOfMonth = new DateTime(year, month + 1, 0);
+    final db = await database;
+    var res = await db.query('receipts', where: '', whereArgs: [year, month]);
+    var receipts = List(0);
+    res.forEach((elem) {
+      receipts.add(Receipt.fromMap(elem));
+    });
+    return receipts;
+  }
+
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "monemo.db");
