@@ -28,8 +28,13 @@ class ManemoDBProvider {
     var firstDayOfMonth = new DateTime(year, month);
     var lastDayOfMonth = new DateTime(year, month + 1, 0);
     final db = await database;
-    var res = await db.query('receipts', where: '', whereArgs: [year, month]);
-    var receipts = List(0);
+    var res = await db.query('receipts',
+        where: 'utime >= ? and utime <= ?',
+        whereArgs: [
+          firstDayOfMonth.millisecondsSinceEpoch,
+          lastDayOfMonth.millisecondsSinceEpoch
+        ]);
+    var receipts = List();
     res.forEach((elem) {
       receipts.add(Receipt.fromMap(elem));
     });
@@ -41,7 +46,7 @@ class ManemoDBProvider {
     String path = join(documentsDirectory.path, "monemo.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE receipts ("
+      await db.execute("CREATE TABLE IF NOT EXISTS receipts ("
           "id INTEGER PRIMARY KEY,"
           "utime INTEGER,"
           "description TEXT,"
@@ -49,6 +54,8 @@ class ManemoDBProvider {
           "continuation_type INTEGER,"
           "payment_type INTEGER"
           ")");
+      await db.execute(
+          "CREATE INDEX IF NOT EXISTS index_list_receipts ON receipts(utime)");
     });
   }
 }
