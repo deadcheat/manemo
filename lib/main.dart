@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manemo/database.dart';
 import 'package:manemo/receipttabbase.dart';
 
 void main() => runApp(MyApp());
@@ -27,8 +28,11 @@ class Monemo extends StatefulWidget {
 }
 
 class _MonemoState extends State<Monemo> {
+  final _dbProvider = ManemoDBProvider.db;
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    _dbProvider.listReceipts(now.year, now.month);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Monemo'),
