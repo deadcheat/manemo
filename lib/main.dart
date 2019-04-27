@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/receipttabbase.dart';
 
@@ -27,10 +29,13 @@ class Monemo extends StatefulWidget {
   _MonemoState createState() => _MonemoState();
 }
 
+var formatter = new DateFormat('yyyy/MM', "ja_JP");
+
 class _MonemoState extends State<Monemo> {
   final _dbProvider = ManemoDBProvider.db;
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting("ja_JP");
     var now = DateTime.now();
     _dbProvider.listReceipts(now.year, now.month);
     return new Scaffold(
@@ -47,7 +52,7 @@ class _MonemoState extends State<Monemo> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text('2019/03',
+                    Text(formatter.format(now),
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 30)),
                     const ListTile(
