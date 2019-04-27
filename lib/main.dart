@@ -45,6 +45,22 @@ class _MonemoState extends State<Monemo> {
     _currentDisplayYearMonth = formatter.format(_displayDateTime);
   }
 
+  void updateDisplayToNextMonth() {
+    setState(() {
+      _displayDateTime =
+          new DateTime(_displayDateTime.year, _displayDateTime.month + 1, 1);
+      _currentDisplayYearMonth = formatter.format(_displayDateTime);
+    });
+  }
+
+  void updateDisplayToPrevMonth() {
+    setState(() {
+      _displayDateTime =
+          new DateTime(_displayDateTime.year, _displayDateTime.month - 1, 1);
+      _currentDisplayYearMonth = formatter.format(_displayDateTime);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _dbProvider.listReceipts(_displayDateTime.year, _displayDateTime.month);
@@ -97,20 +113,11 @@ class _MonemoState extends State<Monemo> {
                         children: <Widget>[
                           FlatButton(
                             child: const Text('NEXT MONTH'),
-                            onPressed: () {
-                              setState(() {
-                                _displayDateTime = new DateTime(
-                                    _displayDateTime.year,
-                                    _displayDateTime.month + 1,
-                                    1);
-                                _currentDisplayYearMonth =
-                                    formatter.format(_displayDateTime);
-                              });
-                            },
+                            onPressed: updateDisplayToNextMonth,
                           ),
                           FlatButton(
                             child: const Text('PREV MONTH'),
-                            onPressed: () {/* ... */},
+                            onPressed: updateDisplayToPrevMonth,
                           ),
                         ],
                       ),
