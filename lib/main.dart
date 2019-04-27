@@ -32,12 +32,22 @@ class Monemo extends StatefulWidget {
 var formatter = new DateFormat('yyyy/MM', "ja_JP");
 
 class _MonemoState extends State<Monemo> {
+  DateTime _displayDateTime;
+  String _currentDisplayYearMonth = '';
   final _dbProvider = ManemoDBProvider.db;
+
+  // どこかのライフサイクル？
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting("ja_JP");
+    _displayDateTime = DateTime.now();
+    _currentDisplayYearMonth = formatter.format(_displayDateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting("ja_JP");
-    var now = DateTime.now();
-    _dbProvider.listReceipts(now.year, now.month);
+    _dbProvider.listReceipts(_displayDateTime.year, _displayDateTime.month);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Monemo'),
@@ -52,7 +62,7 @@ class _MonemoState extends State<Monemo> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(formatter.format(now),
+                    Text(_currentDisplayYearMonth,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 30)),
                     const ListTile(
@@ -87,7 +97,16 @@ class _MonemoState extends State<Monemo> {
                         children: <Widget>[
                           FlatButton(
                             child: const Text('NEXT MONTH'),
-                            onPressed: () {/* ... */},
+                            onPressed: () {
+                              setState(() {
+                                _displayDateTime = new DateTime(
+                                    _displayDateTime.year,
+                                    _displayDateTime.month + 1,
+                                    1);
+                                _currentDisplayYearMonth =
+                                    formatter.format(_displayDateTime);
+                              });
+                            },
                           ),
                           FlatButton(
                             child: const Text('PREV MONTH'),
