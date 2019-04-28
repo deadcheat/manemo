@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:manemo/database.dart';
+import 'package:manemo/model.dart';
 import 'package:manemo/receipttabbase.dart';
 
 void main() => runApp(MyApp());
@@ -35,6 +36,7 @@ class _MonemoState extends State<Monemo> {
   DateTime _displayDateTime;
   String _currentDisplayYearMonth = '';
   final _dbProvider = ManemoDBProvider.db;
+  List<Receipt> _receipts = List<Receipt>();
 
   // どこかのライフサイクル？
   @override
@@ -43,6 +45,8 @@ class _MonemoState extends State<Monemo> {
     initializeDateFormatting("ja_JP");
     _displayDateTime = DateTime.now();
     _currentDisplayYearMonth = formatter.format(_displayDateTime);
+    _receipts =
+        _dbProvider.listReceipts(_displayDateTime.year, _displayDateTime.month);
   }
 
   void updateDisplayToNextMonth() {
@@ -63,7 +67,6 @@ class _MonemoState extends State<Monemo> {
 
   @override
   Widget build(BuildContext context) {
-    _dbProvider.listReceipts(_displayDateTime.year, _displayDateTime.month);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Monemo'),
