@@ -34,7 +34,7 @@ class ManemoDBProvider {
           firstDayOfMonth.millisecondsSinceEpoch,
           lastDayOfMonth.millisecondsSinceEpoch
         ]);
-    var receipts = List();
+    var receipts = List<Receipt>();
     res.forEach((elem) {
       receipts.add(Receipt.fromMap(elem));
     });
