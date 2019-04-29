@@ -37,6 +37,8 @@ class _MonemoState extends State<Monemo> {
   String _currentDisplayYearMonth = '';
   final _dbProvider = ManemoDBProvider.db;
   List<Receipt> _receipts = List<Receipt>();
+  final currencyFormat = new NumberFormat("#,###", "ja_JP");
+  String _cashSumText = '';
 
   // どこかのライフサイクル？
   @override
@@ -47,6 +49,7 @@ class _MonemoState extends State<Monemo> {
     _currentDisplayYearMonth = formatter.format(_displayDateTime);
     _receipts =
         _dbProvider.listReceipts(_displayDateTime.year, _displayDateTime.month);
+    _cashSumText = '';
   }
 
   void updateDisplayToNextMonth() {
@@ -54,6 +57,9 @@ class _MonemoState extends State<Monemo> {
       _displayDateTime =
           new DateTime(_displayDateTime.year, _displayDateTime.month + 1, 1);
       _currentDisplayYearMonth = formatter.format(_displayDateTime);
+      _receipts = _dbProvider.listReceipts(
+          _displayDateTime.year, _displayDateTime.month);
+      _cashSumText = '';
     });
   }
 
@@ -84,13 +90,13 @@ class _MonemoState extends State<Monemo> {
                     Text(_currentDisplayYearMonth,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 30)),
-                    const ListTile(
+                    ListTile(
                       leading: Icon(
                         Icons.attach_money,
                         size: 40.0,
                         color: Colors.indigo,
                       ),
-                      title: Text('30,000',
+                      title: Text(_cashSumText,
                           textAlign: TextAlign.right,
                           style: TextStyle(fontSize: 30)),
                       subtitle: Text('Cash',
