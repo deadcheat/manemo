@@ -24,7 +24,7 @@ class ManemoDBProvider {
     return res;
   }
 
-  listReceipts(int year, int month) async {
+  Future<List<Receipt>> listReceipts(int year, int month) async {
     var firstDayOfMonth = new DateTime(year, month);
     var lastDayOfMonth = new DateTime(year, month + 1, 0);
     final db = await database;
