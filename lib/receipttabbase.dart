@@ -5,7 +5,6 @@ import 'package:manemo/enum.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/model.dart';
-import 'package:sqflite/sqflite.dart';
 
 class ManemoReceiptTabview extends StatefulWidget {
   ManemoReceiptTabview({Key key}) : super(key: key);
