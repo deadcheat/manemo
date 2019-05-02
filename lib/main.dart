@@ -40,6 +40,7 @@ class _MonemoState extends State<Monemo> {
   final _dbProvider = ManemoDBProvider.db;
   List<Receipt> _receipts = List<Receipt>();
   String _cashSumText = '';
+  String _chargeSumText = '';
 
   // どこかのライフサイクル？
   @override
@@ -79,6 +80,7 @@ class _MonemoState extends State<Monemo> {
           _receipts = snapshot.data;
           var sumResult = sumReceipts(_receipts);
           _cashSumText = currencyFormat.format(sumResult.sumOfCashPayment);
+          _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
           return new Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -108,13 +110,13 @@ class _MonemoState extends State<Monemo> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 10)),
                             ),
-                            const ListTile(
+                            ListTile(
                               leading: Icon(
                                 Icons.credit_card,
                                 size: 40.0,
                                 color: Colors.indigo,
                               ),
-                              title: Text('30,000',
+                              title: Text(_chargeSumText,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 30)),
                               subtitle: Text('Charge',
