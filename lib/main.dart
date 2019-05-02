@@ -79,6 +79,9 @@ class _MonemoState extends State<Monemo> {
             _displayDateTime.year, _displayDateTime.month),
         builder: (BuildContext context, AsyncSnapshot<List<Receipt>> snapshot) {
           _receipts = snapshot.data;
+          if (_receipts == null) {
+            _receipts = List<Receipt>();
+          }
           var sumResult = sumReceipts(_receipts);
           _cashSumText = currencyFormat.format(sumResult.sumOfCashPayment);
           _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
@@ -157,7 +160,8 @@ class _MonemoState extends State<Monemo> {
                                       leading: _paymentTypeIcon(PaymentType
                                           .values[receipt.paymentType]),
                                       title: Text(receipt.description),
-                                      subtitle: Text(receipt.utime.toString()),
+                                      subtitle: Text(_utimeToDateTimeString(
+                                          receipt.utime)),
                                     )
                                   ],
                                 ),
@@ -173,6 +177,12 @@ class _MonemoState extends State<Monemo> {
           child: new Icon(Icons.add_circle),
           onPressed: openTab),
     );
+  }
+
+  final dateFormat = DateFormat('yyyy-MM-dd');
+
+  String _utimeToDateTimeString(int utime) {
+    return dateFormat.format(DateTime.fromMillisecondsSinceEpoch(utime));
   }
 
   Icon _paymentTypeIcon(PaymentType paymentType) {
