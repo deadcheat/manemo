@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:manemo/database.dart';
+import 'package:manemo/enum.dart';
 import 'package:manemo/model.dart';
 import 'package:manemo/receipttabbase.dart';
 import 'package:manemo/viewmodel.dart';
@@ -153,8 +154,10 @@ class _MonemoState extends State<Monemo> {
                                 child: Column(
                                   children: <Widget>[
                                     ListTile(
-                                      leading: Icon(Icons.map),
+                                      leading: _paymentTypeIcon(PaymentType
+                                          .values[receipt.paymentType]),
                                       title: Text(receipt.description),
+                                      subtitle: Text(receipt.utime.toString()),
                                     )
                                   ],
                                 ),
@@ -170,6 +173,16 @@ class _MonemoState extends State<Monemo> {
           child: new Icon(Icons.add_circle),
           onPressed: openTab),
     );
+  }
+
+  Icon _paymentTypeIcon(PaymentType paymentType) {
+    switch (paymentType) {
+      case PaymentType.cash:
+        return Icon(Icons.attach_money);
+      case PaymentType.charge:
+        return Icon(Icons.credit_card);
+    }
+    throw Exception('illegal payment type');
   }
 
   void openTab() {
