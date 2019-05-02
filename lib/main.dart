@@ -146,15 +146,15 @@ class _MonemoState extends State<Monemo> {
                       child: new SizedBox(
                           height: 200,
                           child: ListView.builder(
-                            itemCount: 4,
+                            itemCount: _receipts.length,
                             itemBuilder: (context, int index) {
+                              var receipt = _receipts[index];
                               return Card(
                                 child: Column(
                                   children: <Widget>[
                                     ListTile(
                                       leading: Icon(Icons.map),
-                                      title:
-                                          Text('created ' + index.toString()),
+                                      title: Text(receipt.description),
                                     )
                                   ],
                                 ),
