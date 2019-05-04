@@ -485,5 +485,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       paymentType: _paymentType.index,
     );
     _dbProvider.newReceipt(newReceipt);
+
+    Navigator.pop(context);
   }
 }
