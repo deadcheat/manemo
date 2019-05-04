@@ -33,7 +33,7 @@ class Monemo extends StatefulWidget {
 }
 
 final formatter = new DateFormat('yyyy/MM', "ja_JP");
-final currencyFormat = new NumberFormat("#,###", "ja_JP");
+final currencyFormat = new NumberFormat("￥ #,###", "ja_JP");
 
 class _MonemoState extends State<Monemo> {
   DateTime _displayDateTime;
@@ -103,7 +103,7 @@ class _MonemoState extends State<Monemo> {
                                 style: TextStyle(fontSize: 30)),
                             ListTile(
                               leading: Icon(
-                                Icons.attach_money,
+                                Icons.account_balance_wallet,
                                 size: 40.0,
                                 color: Colors.indigo,
                               ),
@@ -159,7 +159,22 @@ class _MonemoState extends State<Monemo> {
                                     ListTile(
                                       leading: _paymentTypeIcon(PaymentType
                                           .values[receipt.paymentType]),
-                                      title: Text(receipt.description),
+                                      title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Text(receipt.description,
+                                                  textAlign: TextAlign.left)),
+                                          Expanded(
+                                              child: Text(
+                                                  currencyFormat
+                                                      .format(receipt.price),
+                                                  textAlign: TextAlign.right)),
+                                        ],
+                                      ),
                                       subtitle: Text(_utimeToDateTimeString(
                                           receipt.utime)),
                                     )
@@ -188,7 +203,7 @@ class _MonemoState extends State<Monemo> {
   Icon _paymentTypeIcon(PaymentType paymentType) {
     switch (paymentType) {
       case PaymentType.cash:
-        return Icon(Icons.attach_money);
+        return Icon(Icons.account_balance_wallet);
       case PaymentType.charge:
         return Icon(Icons.credit_card);
     }
