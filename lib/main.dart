@@ -52,6 +52,13 @@ class _MonemoState extends State<Monemo> {
     _currentDisplayYearMonth = formatter.format(_displayDateTime);
   }
 
+  void updateDisplayToCurrentMonth() {
+    setState(() {
+      _displayDateTime = DateTime.now();
+      _currentDisplayYearMonth = formatter.format(_displayDateTime);
+    });
+  }
+
   void updateDisplayToNextMonth() {
     setState(() {
       _displayDateTime =
@@ -85,6 +92,24 @@ class _MonemoState extends State<Monemo> {
           var sumResult = sumReceipts(_receipts);
           _cashSumText = currencyFormat.format(sumResult.sumOfCashPayment);
           _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
+          var controllButtons = <Widget>[
+            FlatButton(
+              child: const Text('NEXT'),
+              onPressed: updateDisplayToNextMonth,
+            ),
+          ];
+          var now = DateTime.now();
+          if (now.year != _displayDateTime.year ||
+              now.month != _displayDateTime.month) {
+            controllButtons.add(FlatButton(
+              child: const Text('CURRENT'),
+              onPressed: updateDisplayToCurrentMonth,
+            ));
+          }
+          controllButtons.add(FlatButton(
+            child: const Text('PREV'),
+            onPressed: updateDisplayToPrevMonth,
+          ));
           return new Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -130,16 +155,7 @@ class _MonemoState extends State<Monemo> {
                             ButtonTheme.bar(
                               child: ButtonBar(
                                 alignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  FlatButton(
-                                    child: const Text('NEXT MONTH'),
-                                    onPressed: updateDisplayToNextMonth,
-                                  ),
-                                  FlatButton(
-                                    child: const Text('PREV MONTH'),
-                                    onPressed: updateDisplayToPrevMonth,
-                                  ),
-                                ],
+                                children: controllButtons,
                               ),
                             ),
                           ],
