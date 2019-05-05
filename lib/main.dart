@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Monemo',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.indigo,
       ),
       home: Monemo(title: 'Monemo'),
     );
@@ -95,19 +95,31 @@ class _MonemoState extends State<Monemo> {
           _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
           controllButtons.removeRange(0, controllButtons.length);
           controllButtons.add(FlatButton(
-            child: const Text('NEXT'),
+            child: const Icon(
+              Icons.chevron_left,
+              color: Colors.indigo,
+              size: 50.0,
+            ),
             onPressed: updateDisplayToNextMonth,
           ));
           var now = DateTime.now();
           if (now.year != _displayDateTime.year ||
               now.month != _displayDateTime.month) {
             controllButtons.add(FlatButton(
-              child: const Text('CURRENT'),
+              child: const Icon(
+                Icons.undo,
+                color: Colors.indigo,
+                size: 50.0,
+              ),
               onPressed: updateDisplayToCurrentMonth,
             ));
           }
           controllButtons.add(FlatButton(
-            child: const Text('PREV'),
+            child: const Icon(
+              Icons.chevron_right,
+              color: Colors.indigo,
+              size: 50.0,
+            ),
             onPressed: updateDisplayToPrevMonth,
           ));
           return new Container(
