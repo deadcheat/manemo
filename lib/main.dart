@@ -93,12 +93,7 @@ class _MonemoState extends State<Monemo> {
           var sumResult = sumReceipts(_receipts);
           _cashSumText = currencyFormat.format(sumResult.sumOfCashPayment);
           _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
-          // controllButtons = <Widget>[
-          //   FlatButton(
-          //     child: const Text('NEXT'),
-          //     onPressed: updateDisplayToNextMonth,
-          //   ),
-          // ];
+          controllButtons.removeRange(0, controllButtons.length);
           controllButtons.add(FlatButton(
             child: const Text('NEXT'),
             onPressed: updateDisplayToNextMonth,
