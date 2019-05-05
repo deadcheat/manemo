@@ -32,8 +32,8 @@ class Monemo extends StatefulWidget {
   _MonemoState createState() => _MonemoState();
 }
 
-final formatter = new DateFormat('yyyy/MM', "ja_JP");
-final currencyFormat = new NumberFormat("￥ #,###", "ja_JP");
+final formatter = DateFormat('yyyy/MM', "ja_JP");
+final currencyFormat = NumberFormat("￥ #,###", "ja_JP");
 
 class _MonemoState extends State<Monemo> {
   DateTime _displayDateTime;
@@ -62,7 +62,7 @@ class _MonemoState extends State<Monemo> {
   void updateDisplayToNextMonth() {
     setState(() {
       _displayDateTime =
-          new DateTime(_displayDateTime.year, _displayDateTime.month + 1, 1);
+          DateTime(_displayDateTime.year, _displayDateTime.month + 1, 1);
       _currentDisplayYearMonth = formatter.format(_displayDateTime);
     });
   }
@@ -70,7 +70,7 @@ class _MonemoState extends State<Monemo> {
   void updateDisplayToPrevMonth() {
     setState(() {
       _displayDateTime =
-          new DateTime(_displayDateTime.year, _displayDateTime.month - 1, 1);
+          DateTime(_displayDateTime.year, _displayDateTime.month - 1, 1);
       _currentDisplayYearMonth = formatter.format(_displayDateTime);
     });
   }
@@ -78,9 +78,9 @@ class _MonemoState extends State<Monemo> {
   @override
   Widget build(BuildContext context) {
     var controllButtons = <Widget>[];
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Monemo'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Monemo'),
       ),
       body: FutureBuilder<List<Receipt>>(
         future: _dbProvider.listReceipts(
@@ -122,10 +122,10 @@ class _MonemoState extends State<Monemo> {
             ),
             onPressed: updateDisplayToPrevMonth,
           ));
-          return new Container(
+          return Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              child: new Column(
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,8 +168,8 @@ class _MonemoState extends State<Monemo> {
                         ),
                       ),
                     ),
-                    new Expanded(
-                      child: new SizedBox(
+                    Expanded(
+                      child: SizedBox(
                           height: 200,
                           child: ListView.builder(
                             itemCount: _receipts.length,
@@ -210,15 +210,15 @@ class _MonemoState extends State<Monemo> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        child: new Row(
+        child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: controllButtons,
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.indigo,
-          child: new Icon(Icons.add_circle),
+          child: Icon(Icons.add_circle),
           onPressed: openTab),
     );
   }
