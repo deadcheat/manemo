@@ -44,4 +44,9 @@ class Receipt {
         "continuation_type": continuationType,
         "payment_type": paymentType,
       };
+
+  @override
+  String toString() {
+    return super.toString();
+  }
 }
