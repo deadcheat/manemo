@@ -175,32 +175,42 @@ class _MonemoState extends State<Monemo> {
                             itemCount: _receipts.length,
                             itemBuilder: (context, int index) {
                               var receipt = _receipts[index];
-                              return Card(
-                                child: Column(
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: _paymentTypeIcon(PaymentType
-                                          .values[receipt.paymentType]),
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Expanded(
-                                              child: Text(receipt.description,
-                                                  textAlign: TextAlign.left)),
-                                          Expanded(
-                                              child: Text(
-                                                  currencyFormat
-                                                      .format(receipt.price),
-                                                  textAlign: TextAlign.right)),
-                                        ],
-                                      ),
-                                      subtitle: Text(_utimeToDateTimeString(
-                                          receipt.utime)),
-                                    )
-                                  ],
+                              return Dismissible(
+                                onDismissed: (direction) {
+                                  setState(() {
+                                    _receipts.removeAt(index);
+                                    _dbProvider.deleteReceipt(receipt.id);
+                                  });
+                                },
+                                key: Key(receipt.id.toString()),
+                                child: Card(
+                                  child: Column(
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: _paymentTypeIcon(PaymentType
+                                            .values[receipt.paymentType]),
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Expanded(
+                                                child: Text(receipt.description,
+                                                    textAlign: TextAlign.left)),
+                                            Expanded(
+                                                child: Text(
+                                                    currencyFormat
+                                                        .format(receipt.price),
+                                                    textAlign:
+                                                        TextAlign.right)),
+                                          ],
+                                        ),
+                                        subtitle: Text(_utimeToDateTimeString(
+                                            receipt.utime)),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               );
                             },
