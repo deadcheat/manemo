@@ -77,6 +77,7 @@ class _MonemoState extends State<Monemo> {
 
   @override
   Widget build(BuildContext context) {
+    var controllButtons = <Widget>[];
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Monemo'),
@@ -92,12 +93,16 @@ class _MonemoState extends State<Monemo> {
           var sumResult = sumReceipts(_receipts);
           _cashSumText = currencyFormat.format(sumResult.sumOfCashPayment);
           _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
-          var controllButtons = <Widget>[
-            FlatButton(
-              child: const Text('NEXT'),
-              onPressed: updateDisplayToNextMonth,
-            ),
-          ];
+          // controllButtons = <Widget>[
+          //   FlatButton(
+          //     child: const Text('NEXT'),
+          //     onPressed: updateDisplayToNextMonth,
+          //   ),
+          // ];
+          controllButtons.add(FlatButton(
+            child: const Text('NEXT'),
+            onPressed: updateDisplayToNextMonth,
+          ));
           var now = DateTime.now();
           if (now.year != _displayDateTime.year ||
               now.month != _displayDateTime.month) {
@@ -152,12 +157,6 @@ class _MonemoState extends State<Monemo> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 10)),
                             ),
-                            ButtonTheme.bar(
-                              child: ButtonBar(
-                                alignment: MainAxisAlignment.spaceBetween,
-                                children: controllButtons,
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -202,6 +201,13 @@ class _MonemoState extends State<Monemo> {
                     ),
                   ]));
         },
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: controllButtons,
+        ),
       ),
       floatingActionButton: new FloatingActionButton(
           backgroundColor: const Color(0xFF0099ed),
