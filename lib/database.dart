@@ -9,6 +9,7 @@ class ManemoDBProvider {
   ManemoDBProvider._();
   static final ManemoDBProvider db = ManemoDBProvider._();
   static Database _database;
+  final tableNameReceipts = 'receipts';
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -20,7 +21,14 @@ class ManemoDBProvider {
 
   newReceipt(Receipt newReceipt) async {
     final db = await database;
-    var res = await db.insert('receipts', newReceipt.toMap());
+    var res = await db.insert(tableNameReceipts, newReceipt.toMap());
+    return res;
+  }
+
+  deleteReceipt(int id) async {
+    final db = await database;
+    var res =
+        await db.delete(tableNameReceipts, where: 'id = ?', whereArgs: [id]);
     return res;
   }
 
@@ -28,7 +36,7 @@ class ManemoDBProvider {
     var firstDayOfMonth = new DateTime(year, month);
     var lastDayOfMonth = new DateTime(year, month + 1, 0);
     final db = await database;
-    var res = await db.query('receipts',
+    var res = await db.query(tableNameReceipts,
         where: 'utime >= ? and utime <= ?',
         whereArgs: [
           firstDayOfMonth.millisecondsSinceEpoch,
