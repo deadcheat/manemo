@@ -217,7 +217,7 @@ class _MonemoState extends State<Monemo> {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-          backgroundColor: const Color(0xFF0099ed),
+          backgroundColor: Colors.indigo,
           child: new Icon(Icons.add_circle),
           onPressed: openTab),
     );
