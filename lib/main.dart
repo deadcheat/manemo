@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:manemo/const.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/enum.dart';
 import 'package:manemo/model.dart';
@@ -14,11 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Monemo',
+      title: APPNAME,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: Monemo(title: 'Monemo'),
+      home: Monemo(title: APPNAME),
     );
   }
 }
@@ -80,7 +81,7 @@ class _MonemoState extends State<Monemo> {
     var controllButtons = <Widget>[];
     return Scaffold(
       appBar: AppBar(
-        title: Text('Monemo'),
+        title: Text(APPNAME),
       ),
       body: FutureBuilder<List<Receipt>>(
         future: _dbProvider.listReceipts(
