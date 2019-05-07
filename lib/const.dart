@@ -12,4 +12,5 @@ const DISPLAY_WORD_CASH = 'Cash';
 
 class StaticInstances {
   static final dateFormat = DateFormat(DATE_FORMAT_YYYY_MM_DD);
+  static final dbprovider = ManemoDBProvider.db;
 }
