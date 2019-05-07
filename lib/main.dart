@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:manemo/const.dart';
-import 'package:manemo/database.dart';
 import 'package:manemo/enum.dart';
 import 'package:manemo/model.dart';
 import 'package:manemo/receipttabbase.dart';
@@ -84,8 +83,8 @@ class _MonemoState extends State<Monemo> {
         title: Text(APPNAME),
       ),
       body: FutureBuilder<List<Receipt>>(
-        future: _dbProvider.listReceipts(
-            _displayDateTime.year, _displayDateTime.month),
+        future: StaticInstances.dbprovider
+            .listReceipts(_displayDateTime.year, _displayDateTime.month),
         builder: (BuildContext context, AsyncSnapshot<List<Receipt>> snapshot) {
           _receipts = snapshot.data;
           if (_receipts == null) {
@@ -180,7 +179,8 @@ class _MonemoState extends State<Monemo> {
                                 onDismissed: (direction) {
                                   setState(() {
                                     _receipts.removeAt(index);
-                                    _dbProvider.deleteReceipt(receipt.id);
+                                    StaticInstances.dbprovider
+                                        .deleteReceipt(receipt.id);
                                   });
                                 },
                                 key: Key(receipt.id.toString()),
