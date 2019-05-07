@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:manemo/enum.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:manemo/database.dart';
 import 'package:manemo/model.dart';
 import 'package:manemo/const.dart';
 
@@ -25,7 +24,6 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   DateTime payDay;
   PaymentType _paymentType = PaymentType.cash;
   BalanceType _balanceType = BalanceType.expenses;
-  final _dbProvider = ManemoDBProvider.db;
 
   void _setPaymentType(PaymentType newVal) {
     setState(() {
@@ -485,7 +483,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       continuationType: ContinuationType.onetime.index,
       paymentType: _paymentType.index,
     );
-    _dbProvider.newReceipt(newReceipt);
+    StaticInstances.dbprovider.newReceipt(newReceipt);
 
     Navigator.pop(context);
   }
