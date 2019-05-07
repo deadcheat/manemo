@@ -40,7 +40,6 @@ final currencyFormat =
 class _MonemoState extends State<Monemo> {
   DateTime _displayDateTime;
   String _currentDisplayYearMonth = '';
-  final _dbProvider = ManemoDBProvider.db;
   List<Receipt> _receipts = List<Receipt>();
   String _cashSumText = '';
   String _chargeSumText = '';
@@ -236,7 +235,7 @@ class _MonemoState extends State<Monemo> {
   }
 
   String _utimeToDateTimeString(int utime) {
-    return ConstantInstances.dateFormat
+    return StaticInstances.dateFormat
         .format(DateTime.fromMillisecondsSinceEpoch(utime));
   }
 
