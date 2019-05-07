@@ -5,6 +5,7 @@ import 'package:manemo/enum.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:manemo/database.dart';
 import 'package:manemo/model.dart';
+import 'package:manemo/const.dart';
 
 class ManemoReceiptTabview extends StatefulWidget {
   ManemoReceiptTabview({Key key}) : super(key: key);
@@ -17,8 +18,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   final priceTextController = TextEditingController();
   final dateTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
-  final currencyFormat = new NumberFormat("#,###", "ja_JP");
-  final dateFormat = DateFormat('yyyy-MM-dd');
+  final currencyFormat = new NumberFormat(CURRENCY_NUMBER_FORMAT, LOCALE_JA_JP);
+
   DateTime paidDate;
   DateTime lastMonth;
   DateTime payDay;
@@ -45,7 +46,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     priceTextController.addListener(_printLatestValue);
     var now = DateTime.now();
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
-    dateTextController.text = dateFormat.format(paidDate);
+    dateTextController.text = ConstantInstances.dateFormat.format(paidDate);
   }
 
   @override
@@ -144,7 +145,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             child: DateTimePickerFormField(
               inputType: InputType.date,
-              format: DateFormat('yyyy-MM-dd'),
+              format: ConstantInstances.dateFormat,
               controller: dateTextController,
               editable: false,
               initialDate: new DateTime.now(),
@@ -216,7 +217,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _paymentType,
                   onChanged: _setPaymentType,
                   title: new Text(
-                    'Cash',
+                    DISPLAY_WORD_CASH,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -227,7 +228,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _paymentType,
                   onChanged: _setPaymentType,
                   title: new Text(
-                    'Charge',
+                    DISPLAY_WORD_CHARGE,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -311,7 +312,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             child: DateTimePickerFormField(
               inputType: InputType.date,
-              format: DateFormat('yyyy-MM-dd'),
+              format: ConstantInstances.dateFormat,
               controller: dateTextController,
               editable: false,
               initialDate: new DateTime.now(),
@@ -383,7 +384,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _paymentType,
                   onChanged: _setPaymentType,
                   title: new Text(
-                    'Cash',
+                    DISPLAY_WORD_CASH,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -394,7 +395,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _paymentType,
                   onChanged: _setPaymentType,
                   title: new Text(
-                    'Charge',
+                    DISPLAY_WORD_CHARGE,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
