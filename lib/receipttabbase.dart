@@ -46,7 +46,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     priceTextController.addListener(_printLatestValue);
     var now = DateTime.now();
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
-    dateTextController.text = ConstantInstances.dateFormat.format(paidDate);
+    dateTextController.text = StaticInstances.dateFormat.format(paidDate);
   }
 
   @override
@@ -145,7 +145,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             child: DateTimePickerFormField(
               inputType: InputType.date,
-              format: ConstantInstances.dateFormat,
+              format: StaticInstances.dateFormat,
               controller: dateTextController,
               editable: false,
               initialDate: new DateTime.now(),
@@ -312,7 +312,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             child: DateTimePickerFormField(
               inputType: InputType.date,
-              format: ConstantInstances.dateFormat,
+              format: StaticInstances.dateFormat,
               controller: dateTextController,
               editable: false,
               initialDate: new DateTime.now(),
