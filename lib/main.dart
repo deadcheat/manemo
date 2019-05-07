@@ -33,8 +33,9 @@ class Monemo extends StatefulWidget {
   _MonemoState createState() => _MonemoState();
 }
 
-final formatter = DateFormat('yyyy/MM', "ja_JP");
-final currencyFormat = NumberFormat("￥ #,###", "ja_JP");
+final formatter = DateFormat(DATE_FORMAT_YYYY_MM, LOCALE_JA_JP);
+final currencyFormat =
+    NumberFormat(DISPLAY_CURRENCY_NUMBER_FORMAT, LOCALE_JA_JP);
 
 class _MonemoState extends State<Monemo> {
   DateTime _displayDateTime;
@@ -48,7 +49,7 @@ class _MonemoState extends State<Monemo> {
   @override
   void initState() {
     super.initState();
-    initializeDateFormatting("ja_JP");
+    initializeDateFormatting(LOCALE_JA_JP);
     _displayDateTime = DateTime.now();
     _currentDisplayYearMonth = formatter.format(_displayDateTime);
   }
@@ -148,7 +149,7 @@ class _MonemoState extends State<Monemo> {
                               title: Text(_cashSumText,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 30)),
-                              subtitle: Text('Cash',
+                              subtitle: Text(DISPLAY_WORD_CASH,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 10)),
                             ),
@@ -161,7 +162,7 @@ class _MonemoState extends State<Monemo> {
                               title: Text(_chargeSumText,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 30)),
-                              subtitle: Text('Charge',
+                              subtitle: Text(DISPLAY_WORD_CHARGE,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 10)),
                             ),
@@ -234,10 +235,9 @@ class _MonemoState extends State<Monemo> {
     );
   }
 
-  final dateFormat = DateFormat('yyyy-MM-dd');
-
   String _utimeToDateTimeString(int utime) {
-    return dateFormat.format(DateTime.fromMillisecondsSinceEpoch(utime));
+    return ConstantInstances.dateFormat
+        .format(DateTime.fromMillisecondsSinceEpoch(utime));
   }
 
   Icon _paymentTypeIcon(PaymentType paymentType) {
