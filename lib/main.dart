@@ -246,7 +246,7 @@ class _MonemoState extends State<Monemo> {
       case PaymentType.charge:
         return Icon(Icons.credit_card);
     }
-    throw Exception('illegal payment type');
+    throw Exception('Illegal payment type');
   }
 
   void openTab() {
