@@ -40,7 +40,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   @override
   void initState() {
     super.initState();
-    priceTextController.text = '0';
+    priceTextController.text = ZERO_STRING;
     priceTextController.addListener(_printLatestValue);
     var now = DateTime.now();
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
@@ -65,7 +65,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       return;
     }
     if (value == null || value.isEmpty) {
-      priceTextController.text = '0';
+      priceTextController.text = ZERO_STRING;
       return;
     }
     final n = num.tryParse(priceTextController.text);
@@ -76,7 +76,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
 
   String _numberValidator(String value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter some text';
+      return ERROR_NUMBERTEXT_IS_EMPTY;
     }
     final n = num.tryParse(value);
     if (n == null) {
@@ -97,7 +97,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'incomes or expenses',
+              DISPLAY_INCOMES_OR_EXPENSES,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -112,7 +112,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _balanceType,
                   onChanged: _setBalanceType,
                   title: new Text(
-                    'Incomes',
+                    DISPLAY_INCOMES,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -123,7 +123,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _balanceType,
                   onChanged: _setBalanceType,
                   title: new Text(
-                    'Expenses',
+                    DISPLAY_EXPENSES,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -133,7 +133,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Date',
+              DISPLAY_DATE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -156,7 +156,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Total',
+              DISPLAY_TOTAL,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -166,7 +166,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           TextFormField(
             controller: priceTextController,
             decoration: InputDecoration(
-              prefix: Text("￥"),
+              prefix: Text(DISPLAY_JPY_MARK),
             ),
             inputFormatters: [
               WhitelistingTextInputFormatter.digitsOnly,
@@ -179,7 +179,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Description',
+              DISPLAY_DESCRIPTION,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -200,7 +200,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Cash or Charge',
+              DISPLAY_CASH_OR_CHARGE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -264,7 +264,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'incomes or expenses',
+              DISPLAY_INCOMES_OR_EXPENSES,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -279,7 +279,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _balanceType,
                   onChanged: _setBalanceType,
                   title: new Text(
-                    'Incomes',
+                    DISPLAY_INCOMES,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -290,7 +290,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   groupValue: _balanceType,
                   onChanged: _setBalanceType,
                   title: new Text(
-                    'Expenses',
+                    DISPLAY_EXPENSES,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -300,7 +300,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Date',
+              DISPLAY_DATE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -323,7 +323,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Total',
+              DISPLAY_TOTAL,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -333,7 +333,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           TextFormField(
             controller: priceTextController,
             decoration: InputDecoration(
-              prefix: Text("￥"),
+              prefix: Text(DISPLAY_JPY_MARK),
             ),
             inputFormatters: [
               WhitelistingTextInputFormatter.digitsOnly,
@@ -346,7 +346,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Description',
+              DISPLAY_DESCRIPTION,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -367,7 +367,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              'Cash or Charge',
+              DISPLAY_CASH_OR_CHARGE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -426,14 +426,14 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('regsiter payment'),
+          title: Text(DISPLAY_REGISTER_PAYMENT),
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
-                text: 'one-time',
+                text: DISPLAY_ONE_TIME,
               ),
               Tab(
-                text: 'regularly',
+                text: DISPLAY_REGULARLY,
               ),
             ],
           ),
@@ -455,7 +455,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       },
       color: Colors.blueGrey[100],
       child: Text(
-        'Cancel',
+        DISPLAY_CANCEL,
         style: TextStyle(fontSize: 16.9),
       ),
       textColor: Colors.white70,
@@ -467,7 +467,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       onPressed: _addOneTimeReceipt,
       color: Colors.green,
       child: Text(
-        'Add',
+        DISPLAY_ADD,
         style: TextStyle(fontSize: 16.9),
       ),
       textColor: Colors.white70,
