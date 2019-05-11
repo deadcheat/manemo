@@ -43,7 +43,6 @@ class _MonemoState extends State<Monemo> {
   String _cashSumText = '';
   String _chargeSumText = '';
 
-  // どこかのライフサイクル？
   @override
   void initState() {
     super.initState();
