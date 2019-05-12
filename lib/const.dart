@@ -5,7 +5,7 @@ const APPNAME = 'MANEMO';
 const LOCALE_JA_JP = 'ja_JP';
 const CURRENCY_NUMBER_FORMAT = '#,###';
 const DATE_FORMAT_YYYY_MM = 'yyyy/MM';
-const DATE_FORMAT_YYYY_MM_DD = 'yyyy-MM-dd';
+const DATE_FORMAT_YYYY_MM_DD = 'yyyy/MM/dd';
 
 const DISPLAY_CURRENCY_NUMBER_FORMAT = '￥ #,###';
 const DISPLAY_WORD_CHARGE = 'Charge';
@@ -14,6 +14,7 @@ const DISPLAY_INCOMES_OR_EXPENSES = 'INCOMES OR EXPENSES';
 const DISPLAY_INCOMES = 'INCOMES';
 const DISPLAY_EXPENSES = 'EXPENSES';
 const DISPLAY_DATE = 'DATE';
+const DISPLAY_YEAR_AND_MONTH = 'YEAR / MONTH';
 const DISPLAY_TOTAL = 'TOTAL';
 const DISPLAY_JPY_MARK = '￥';
 const DISPLAY_DESCRIPTION = 'DESCRIPTION';
@@ -30,5 +31,6 @@ const ERROR_NUMBERTEXT_IS_EMPTY = 'Please enter numbers';
 
 class StaticInstances {
   static final dateFormat = DateFormat(DATE_FORMAT_YYYY_MM_DD);
+  static final yearMonthFormat = DateFormat(DATE_FORMAT_YYYY_MM);
   static final dbprovider = ManemoDBProvider.db;
 }
