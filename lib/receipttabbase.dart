@@ -113,7 +113,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_INCOMES,
-                    style: new TextStyle(fontSize: 20.0),
+                    style: new TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
@@ -124,7 +124,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_EXPENSES,
-                    style: new TextStyle(fontSize: 20.0),
+                    style: new TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
@@ -280,7 +280,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_INCOMES,
-                    style: new TextStyle(fontSize: 20.0),
+                    style: new TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
@@ -291,7 +291,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_EXPENSES,
-                    style: new TextStyle(fontSize: 20.0),
+                    style: new TextStyle(fontSize: 18.0),
                   ),
                 ),
               ),
@@ -300,7 +300,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              DISPLAY_DATE,
+              DISPLAY_YEAR_AND_MONTH,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
@@ -310,7 +310,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             child: DateTimePickerFormField(
               inputType: InputType.date,
-              format: StaticInstances.dateFormat,
+              format: StaticInstances.yearMonthFormat,
               controller: dateTextController,
               editable: false,
               initialDate: new DateTime.now(),
