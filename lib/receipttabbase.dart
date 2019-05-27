@@ -100,7 +100,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_INCOMES_OR_EXPENSES,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -113,7 +113,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_INCOMES,
-                    style: new TextStyle(fontSize: 18.0),
+                    style: new TextStyle(fontSize: 15.0),
                   ),
                 ),
               ),
@@ -124,7 +124,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_EXPENSES,
-                    style: new TextStyle(fontSize: 18.0),
+                    style: new TextStyle(fontSize: 15.0),
                   ),
                 ),
               ),
@@ -136,7 +136,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_DATE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -159,7 +159,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_TOTAL,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -182,7 +182,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_DESCRIPTION,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -203,7 +203,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_CASH_OR_CHARGE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -233,19 +233,18 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               ),
             ],
           ),
-          SizedBox(height: 100.0),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // FIXME: this calculation is strange
               children: <Widget>[
                 Container(
-                  height: 50.0,
+                  height: 40.0,
                   width: (MediaQuery.of(context).size.width) * 0.4,
                   child: _cancelButton(),
                 ),
                 Container(
-                    height: 50.0,
+                    height: 40.0,
                     width: (MediaQuery.of(context).size.width) * 0.4,
                     child: _addOneTimeReceiptButton()),
               ],
@@ -267,7 +266,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_INCOMES_OR_EXPENSES,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -280,7 +279,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_INCOMES,
-                    style: new TextStyle(fontSize: 18.0),
+                    style: new TextStyle(fontSize: 15.0),
                   ),
                 ),
               ),
@@ -291,7 +290,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   onChanged: _setBalanceType,
                   title: new Text(
                     DISPLAY_EXPENSES,
-                    style: new TextStyle(fontSize: 18.0),
+                    style: new TextStyle(fontSize: 15.0),
                   ),
                 ),
               ),
@@ -303,7 +302,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_YEAR_AND_MONTH,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -326,7 +325,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_TOTAL,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -349,7 +348,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_DESCRIPTION,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -370,7 +369,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               DISPLAY_CASH_OR_CHARGE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 15.0,
               ),
             ),
           ),
@@ -400,19 +399,18 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               ),
             ],
           ),
-          SizedBox(height: 100.0),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // FIXME: this calculation is strange
               children: <Widget>[
                 Container(
-                  height: 50.0,
+                  height: 40.0,
                   width: (MediaQuery.of(context).size.width) * 0.4,
                   child: _cancelButton(),
                 ),
                 Container(
-                    height: 50.0,
+                    height: 40.0,
                     width: (MediaQuery.of(context).size.width) * 0.4,
                     child: _addOneTimeReceiptButton()),
               ],
