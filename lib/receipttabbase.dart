@@ -253,7 +253,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
         ],
       ),
     );
-    var registerContinuousTab = Container(
+    var registerRegularTab = Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -439,7 +439,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
         body: TabBarView(
           children: <Widget>[
             registerOnceTab,
-            registerContinuousTab,
+            registerRegularTab,
           ],
         ),
       ),
