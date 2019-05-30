@@ -22,6 +22,9 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   DateTime paidDate;
   DateTime lastMonth;
   DateTime payDay;
+  DateTime regularPaymentStartsAt;
+  DateTime regularPaymentEndsAt;
+  int regularPaymentDate;
   PaymentType _paymentType = PaymentType.cash;
   BalanceType _balanceType = BalanceType.expenses;
 
