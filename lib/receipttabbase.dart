@@ -89,10 +89,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   Widget build(BuildContext context) {
     var registerOnceTab = Container(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: ListView(
         children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
@@ -255,10 +252,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     );
     var registerRegularTab = Container(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: ListView(
         children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
