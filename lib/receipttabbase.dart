@@ -16,6 +16,7 @@ class ManemoReceiptTabview extends StatefulWidget {
 class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   final priceTextController = TextEditingController();
   final dateTextController = TextEditingController();
+  final regularDateTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
   final currencyFormat = new NumberFormat(CURRENCY_NUMBER_FORMAT, LOCALE_JA_JP);
 
@@ -47,7 +48,11 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     priceTextController.addListener(_printLatestValue);
     var now = DateTime.now();
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
+    regularPaymentStartsAt =
+        DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
     dateTextController.text = StaticInstances.dateFormat.format(paidDate);
+    regularDateTextController.text =
+        StaticInstances.yearMonthFormat.format(paidDate);
   }
 
   @override
@@ -56,6 +61,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     // This also removes the _printLatestValue listener
     priceTextController.dispose();
     dateTextController.dispose();
+    regularDateTextController.dispose();
     descriptionTextController.dispose();
     super.dispose();
   }
@@ -307,13 +313,13 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
             child: DateTimePickerFormField(
               inputType: InputType.date,
               format: StaticInstances.yearMonthFormat,
-              controller: dateTextController,
+              controller: regularDateTextController,
               editable: false,
               initialDate: new DateTime.now(),
               initialValue: new DateTime.now(),
               style: TextStyle(fontSize: 40.0),
               textAlign: TextAlign.center,
-              onChanged: (dt) => setState(() => paidDate = dt),
+              onChanged: (dt) => setState(() => regularPaymentStartsAt = dt),
             ),
           ),
           Container(
