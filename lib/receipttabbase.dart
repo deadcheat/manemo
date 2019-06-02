@@ -335,7 +335,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   decoration: new InputDecoration.collapsed(
                     hintText: 'yyyy',
                   ),
-                  controller: endYearTextController,
+                  controller: startYearTextController,
                   inputFormatters: [
                     WhitelistingTextInputFormatter.digitsOnly,
                   ],
@@ -390,11 +390,19 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 ),
               ),
             ]),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.black,
+                  width: 1.0,
+                ),
+              ),
+            ),
           ),
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              DISPLAY_START_PAYMENT,
+              DISPLAY_END_PAYMENT,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
@@ -409,7 +417,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   decoration: new InputDecoration.collapsed(
                     hintText: 'yyyy',
                   ),
-                  controller: startYearTextController,
+                  controller: endYearTextController,
                   inputFormatters: [
                     WhitelistingTextInputFormatter.digitsOnly,
                   ],
@@ -431,7 +439,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    value: regularPaymentStartMonth,
+                    value: regularPaymentEndMonth,
                     onChanged: (String newValue) {
                       setState(() {
                         regularPaymentStartMonth = newValue;
@@ -464,6 +472,14 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 ),
               ),
             ]),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.black,
+                  width: 1.0,
+                ),
+              ),
+            ),
           ),
           Container(
             alignment: Alignment.centerLeft,
