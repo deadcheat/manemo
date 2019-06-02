@@ -24,6 +24,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   DateTime lastMonth;
   DateTime payDay;
   DateTime regularPaymentStartsAt;
+  String regularPaymentStartYear;
+  String regularPaymentStartMonth;
   DateTime regularPaymentEndsAt;
   int regularPaymentDate;
   PaymentType _paymentType = PaymentType.cash;
@@ -50,6 +52,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
     regularPaymentStartsAt =
         DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
+    regularPaymentStartYear = DateFormat('yyyy').format(now);
+    regularPaymentStartMonth = DateFormat('MM').format(now);
     dateTextController.text = StaticInstances.dateFormat.format(paidDate);
     regularDateTextController.text =
         StaticInstances.yearMonthFormat.format(paidDate);
@@ -306,6 +310,40 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
+              ),
+            ),
+          ),
+          Container(
+            child: Center(
+              child: DropdownButton<String>(
+                value: regularPaymentStartMonth,
+                onChanged: (String newValue) {
+                  setState(() {
+                    regularPaymentStartMonth = newValue;
+                  });
+                },
+                items: <String>[
+                  '01',
+                  '02',
+                  '03',
+                  '04',
+                  '05',
+                  '06',
+                  '07',
+                  '08',
+                  '09',
+                  '10',
+                  '11',
+                  '12'
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(fontSize: 40.0),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ),
