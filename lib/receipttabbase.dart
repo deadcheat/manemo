@@ -18,7 +18,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   final dateTextController = TextEditingController();
   final regularDateTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
-  final yearTextController = TextEditingController();
+  final startYearTextController = TextEditingController();
+  final endYearTextController = TextEditingController();
   final currencyFormat = new NumberFormat(CURRENCY_NUMBER_FORMAT, LOCALE_JA_JP);
 
   DateTime paidDate;
@@ -28,6 +29,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   String regularPaymentStartYear;
   String regularPaymentStartMonth;
   DateTime regularPaymentEndsAt;
+  String regularPaymentEndYear;
+  String regularPaymentEndMonth;
   int regularPaymentDate;
   PaymentType _paymentType = PaymentType.cash;
   BalanceType _balanceType = BalanceType.expenses;
@@ -51,11 +54,18 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     priceTextController.addListener(_printLatestValue);
     var now = DateTime.now();
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
-    regularPaymentStartsAt =
-        DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
-    regularPaymentStartYear = DateFormat('yyyy').format(now);
-    yearTextController.text = regularPaymentStartYear;
-    regularPaymentStartMonth = DateFormat('MM').format(now);
+    regularPaymentStartsAt = DateTime(now.year, now.month, 1, 0, 0, 0, 0, 0);
+    regularPaymentStartYear =
+        DateFormat(DATE_FORMAT_YYYY).format(regularPaymentStartsAt);
+    startYearTextController.text = regularPaymentStartYear;
+    regularPaymentStartMonth =
+        DateFormat(DATE_FORMAT_MM).format(regularPaymentStartsAt);
+    regularPaymentEndsAt = DateTime(now.year, now.month + 1, 1, 0, 0, 0, 0, 0);
+    regularPaymentEndYear =
+        DateFormat(DATE_FORMAT_YYYY).format(regularPaymentEndsAt);
+    endYearTextController.text = regularPaymentEndYear;
+    regularPaymentEndMonth =
+        DateFormat(DATE_FORMAT_MM).format(regularPaymentEndsAt);
     dateTextController.text = StaticInstances.dateFormat.format(paidDate);
     regularDateTextController.text =
         StaticInstances.yearMonthFormat.format(paidDate);
@@ -69,7 +79,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     dateTextController.dispose();
     regularDateTextController.dispose();
     descriptionTextController.dispose();
-    yearTextController.dispose();
+    startYearTextController.dispose();
+    endYearTextController.dispose();
     super.dispose();
   }
 
@@ -324,7 +335,81 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   decoration: new InputDecoration.collapsed(
                     hintText: 'yyyy',
                   ),
-                  controller: yearTextController,
+                  controller: endYearTextController,
+                  inputFormatters: [
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  validator: _numberValidator,
+                  keyboardType: TextInputType.numberWithOptions(decimal: false),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 40.0),
+                ),
+              ),
+              Container(
+                child: Text(
+                  '/',
+                  style: TextStyle(fontSize: 35.0),
+                ),
+              ),
+              Container(
+                width: (MediaQuery.of(context).size.width) * 0.4,
+                alignment: Alignment.center,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    value: regularPaymentStartMonth,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        regularPaymentEndMonth = newValue;
+                      });
+                    },
+                    items: <String>[
+                      '01',
+                      '02',
+                      '03',
+                      '04',
+                      '05',
+                      '06',
+                      '07',
+                      '08',
+                      '09',
+                      '10',
+                      '11',
+                      '12'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          '   ' + value,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 40.0),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              DISPLAY_START_PAYMENT,
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              ),
+            ),
+          ),
+          Container(
+            child: Row(children: <Widget>[
+              Container(
+                width: (MediaQuery.of(context).size.width) * 0.4,
+                child: TextFormField(
+                  decoration: new InputDecoration.collapsed(
+                    hintText: 'yyyy',
+                  ),
+                  controller: startYearTextController,
                   inputFormatters: [
                     WhitelistingTextInputFormatter.digitsOnly,
                   ],
