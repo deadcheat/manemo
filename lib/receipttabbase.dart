@@ -18,6 +18,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   final dateTextController = TextEditingController();
   final regularDateTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
+  final yearTextController = TextEditingController();
   final currencyFormat = new NumberFormat(CURRENCY_NUMBER_FORMAT, LOCALE_JA_JP);
 
   DateTime paidDate;
@@ -53,6 +54,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     regularPaymentStartsAt =
         DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
     regularPaymentStartYear = DateFormat('yyyy').format(now);
+    yearTextController.text = regularPaymentStartYear;
     regularPaymentStartMonth = DateFormat('MM').format(now);
     dateTextController.text = StaticInstances.dateFormat.format(paidDate);
     regularDateTextController.text =
@@ -67,6 +69,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     dateTextController.dispose();
     regularDateTextController.dispose();
     descriptionTextController.dispose();
+    yearTextController.dispose();
     super.dispose();
   }
 
@@ -306,7 +309,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              DISPLAY_YEAR_AND_MONTH,
+              DISPLAY_START_PAYMENT,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
@@ -314,51 +317,68 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
             ),
           ),
           Container(
-            child: Center(
-              child: DropdownButton<String>(
-                value: regularPaymentStartMonth,
-                onChanged: (String newValue) {
-                  setState(() {
-                    regularPaymentStartMonth = newValue;
-                  });
-                },
-                items: <String>[
-                  '01',
-                  '02',
-                  '03',
-                  '04',
-                  '05',
-                  '06',
-                  '07',
-                  '08',
-                  '09',
-                  '10',
-                  '11',
-                  '12'
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(fontSize: 40.0),
-                    ),
-                  );
-                }).toList(),
+            child: Row(children: <Widget>[
+              Container(
+                width: (MediaQuery.of(context).size.width) * 0.4,
+                child: TextFormField(
+                  decoration: new InputDecoration.collapsed(
+                    hintText: 'yyyy',
+                  ),
+                  controller: yearTextController,
+                  inputFormatters: [
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  validator: _numberValidator,
+                  keyboardType: TextInputType.numberWithOptions(decimal: false),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 40.0),
+                ),
               ),
-            ),
-          ),
-          Container(
-            child: DateTimePickerFormField(
-              inputType: InputType.date,
-              format: StaticInstances.yearMonthFormat,
-              controller: regularDateTextController,
-              editable: false,
-              initialDate: new DateTime.now(),
-              initialValue: new DateTime.now(),
-              style: TextStyle(fontSize: 40.0),
-              textAlign: TextAlign.center,
-              onChanged: (dt) => setState(() => regularPaymentStartsAt = dt),
-            ),
+              Container(
+                child: Text(
+                  '/',
+                  style: TextStyle(fontSize: 35.0),
+                ),
+              ),
+              Container(
+                width: (MediaQuery.of(context).size.width) * 0.4,
+                alignment: Alignment.center,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    value: regularPaymentStartMonth,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        regularPaymentStartMonth = newValue;
+                      });
+                    },
+                    items: <String>[
+                      '01',
+                      '02',
+                      '03',
+                      '04',
+                      '05',
+                      '06',
+                      '07',
+                      '08',
+                      '09',
+                      '10',
+                      '11',
+                      '12'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          '   ' + value,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 40.0),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ]),
           ),
           Container(
             alignment: Alignment.centerLeft,
