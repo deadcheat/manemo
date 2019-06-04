@@ -20,6 +20,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   final descriptionTextController = TextEditingController();
   final startYearTextController = TextEditingController();
   final endYearTextController = TextEditingController();
+  final paymentDayTextController = TextEditingController();
   final currencyFormat = new NumberFormat(CURRENCY_NUMBER_FORMAT, LOCALE_JA_JP);
 
   DateTime paidDate;
@@ -55,14 +56,13 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     var now = DateTime.now();
     paidDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
     regularPaymentStartsAt = DateTime(now.year, now.month, 1, 0, 0, 0, 0, 0);
-    regularPaymentStartYear =
-        DateFormat(DATE_FORMAT_YYYY).format(regularPaymentStartsAt);
+    regularPaymentStartYear = regularPaymentStartsAt.year.toString();
     startYearTextController.text = regularPaymentStartYear;
     regularPaymentStartMonth =
         DateFormat(DATE_FORMAT_MM).format(regularPaymentStartsAt);
+    paymentDayTextController.text = regularPaymentStartsAt.day.toString();
     regularPaymentEndsAt = DateTime(now.year, now.month + 1, 1, 0, 0, 0, 0, 0);
-    regularPaymentEndYear =
-        DateFormat(DATE_FORMAT_YYYY).format(regularPaymentEndsAt);
+    regularPaymentEndYear = regularPaymentEndsAt.year.toString();
     endYearTextController.text = regularPaymentEndYear;
     regularPaymentEndMonth =
         DateFormat(DATE_FORMAT_MM).format(regularPaymentEndsAt);
@@ -81,6 +81,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     descriptionTextController.dispose();
     startYearTextController.dispose();
     endYearTextController.dispose();
+    paymentDayTextController.dispose();
     super.dispose();
   }
 
@@ -108,6 +109,18 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     final n = num.tryParse(value);
     if (n == null) {
       return '"$value" is not a valid number';
+    }
+    return null;
+  }
+
+  String _dayValidator(String value) {
+    final nv = _numberValidator(value);
+    if (nv != null) {
+      return nv;
+    }
+    final n = num.tryParse(value);
+    if (n < 0 || 31 < n) {
+      return '"$value" should be between 1 and 31';
     }
     return null;
   }
@@ -479,6 +492,29 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   width: 1.0,
                 ),
               ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: new Text(
+              DISPLAY_PAYMENT_DAY,
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            child: TextFormField(
+              controller: paymentDayTextController,
+              inputFormatters: [
+                WhitelistingTextInputFormatter.digitsOnly,
+              ],
+              validator: _dayValidator,
+              keyboardType: TextInputType.numberWithOptions(decimal: false),
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 40.0),
             ),
           ),
           Container(
