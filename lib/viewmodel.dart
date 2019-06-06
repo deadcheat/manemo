@@ -1,5 +1,5 @@
-import 'package:manemo/enum.dart';
-import 'package:manemo/model.dart';
+import 'package:manemo/enum.dart' show PaymentType;
+import 'package:manemo/model.dart' show Receipt;
 
 class ReceiptViewModel {
   int sumOfCashPayment;
