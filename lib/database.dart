@@ -10,6 +10,7 @@ class ManemoDBProvider {
   static final ManemoDBProvider db = ManemoDBProvider._();
   static Database _database;
   final tableNameReceipts = 'receipts';
+  final tableNameRegularPayments = 'regular_payments';
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -64,6 +65,18 @@ class ManemoDBProvider {
           ")");
       await db.execute(
           "CREATE INDEX IF NOT EXISTS index_list_receipts ON receipts(utime)");
+      await db.execute("CREATE TABLE IF NOT EXISTS regular_payments ("
+          "id INTEGER PRIMARY KEY,"
+          "utime_month_from INTEGER,"
+          "utime_month_to INTEGER,"
+          "day_of_month INTEGER"
+          "description TEXT,"
+          "price INTEGER,"
+          "continuation_type INTEGER,"
+          "payment_type INTEGER"
+          ")");
+      await db.execute(
+          "CREATE INDEX IF NOT EXISTS index_list_regular_payments ON regular_payments(utime_month_from, utime_month_to)");
     });
   }
 }
