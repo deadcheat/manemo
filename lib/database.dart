@@ -60,7 +60,6 @@ class ManemoDBProvider {
           "utime INTEGER,"
           "description TEXT,"
           "price INTEGER,"
-          "continuation_type INTEGER,"
           "payment_type INTEGER"
           ")");
       await db.execute(
@@ -72,7 +71,6 @@ class ManemoDBProvider {
           "day_of_month INTEGER"
           "description TEXT,"
           "price INTEGER,"
-          "continuation_type INTEGER,"
           "payment_type INTEGER"
           ")");
       await db.execute(
