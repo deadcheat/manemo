@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:manemo/enum.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,6 +14,7 @@ class ManemoDBProvider {
   final tableNameRegularPayments = 'regular_payments';
 
   Future<Database> get database async {
+    Sqflite.devSetDebugModeOn(true);
     if (_database != null) return _database;
 
     // if _database is null we instantiate it
@@ -20,13 +22,24 @@ class ManemoDBProvider {
     return _database;
   }
 
-  newReceipt(Receipt newReceipt) async {
+  deleteReceipt(int id, ContinuationType c) async {
+    switch (c) {
+      case ContinuationType.onetime:
+        return await deleteOneTimeReceipt(id);
+      case ContinuationType.regularly:
+        return await deleteRegularReceipt(id);
+      default:
+        throw Exception("wrong continuation type for deletion");
+    }
+  }
+
+  newOneTimeReceipt(OneTimeReceipt newReceipt) async {
     final db = await database;
     var res = await db.insert(tableNameReceipts, newReceipt.toMap());
     return res;
   }
 
-  deleteReceipt(int id) async {
+  deleteOneTimeReceipt(int id) async {
     final db = await database;
     var res =
         await db.delete(tableNameReceipts, where: 'id = ?', whereArgs: [id]);
@@ -46,7 +59,22 @@ class ManemoDBProvider {
     return res;
   }
 
-  Future<List<Receipt>> listReceipts(int year, int month) async {
+  Future<List<Receipt>> listAllReceipts(int year, int month) async {
+    var receipts = List<Receipt>();
+    var regularReceipts = await listRegularReceipts(year, month);
+    regularReceipts.forEach((regularReceipt) {
+      receipts.add(regularReceipt.toReceipt(year, month));
+    });
+
+    var oneTimeReceipts = await listOneTimeReceipts(year, month);
+    oneTimeReceipts.forEach((oneTimeReceipt) {
+      receipts.add(oneTimeReceipt.toReceipt());
+    });
+
+    return receipts;
+  }
+
+  Future<List<OneTimeReceipt>> listOneTimeReceipts(int year, int month) async {
     var firstDayOfMonth = new DateTime(year, month);
     var lastDayOfMonth = new DateTime(year, month + 1, 0, 23, 59, 59);
     final db = await database;
@@ -56,9 +84,9 @@ class ManemoDBProvider {
           firstDayOfMonth.millisecondsSinceEpoch,
           lastDayOfMonth.millisecondsSinceEpoch
         ]);
-    var receipts = List<Receipt>();
+    var receipts = List<OneTimeReceipt>();
     res.forEach((elem) {
-      receipts.add(Receipt.fromMap(elem));
+      receipts.add(OneTimeReceipt.fromMap(elem));
     });
     return receipts;
   }
@@ -68,7 +96,7 @@ class ManemoDBProvider {
     var lastDayOfMonth = new DateTime(year, month + 1, 0, 23, 59, 59);
     final db = await database;
     var res = await db.query(tableNameRegularPayments,
-        where: 'utime_month_from >= ? and utime_month_to <= ?',
+        where: 'utime_month_from <= ? and utime_month_to >= ?',
         whereArgs: [
           firstDayOfMonth.millisecondsSinceEpoch,
           lastDayOfMonth.millisecondsSinceEpoch
