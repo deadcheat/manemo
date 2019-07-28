@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show TextInputType, WhitelistingTextInputFormatter;
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
-import 'package:manemo/enum.dart'
-    show BalanceType, ContinuationType, PaymentType;
+import 'package:manemo/enum.dart' show BalanceType, PaymentType;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart'
     show DateTimePickerFormField, InputType;
 import 'package:manemo/model.dart' show Receipt;
 import 'package:manemo/const.dart';
+import 'package:manemo/model.dart';
 
 class ManemoReceiptTabview extends StatefulWidget {
   ManemoReceiptTabview({Key key}) : super(key: key);
@@ -613,7 +613,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 Container(
                     height: 40.0,
                     width: (MediaQuery.of(context).size.width) * 0.4,
-                    child: _addOneTimeReceiptButton()),
+                    child: _addRegularReceiptButton()),
               ],
             ),
           ),
@@ -679,10 +679,43 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       utime: paidDate.millisecondsSinceEpoch,
       price: priceVal.toInt(),
       description: descriptionTextController.text,
-      continuationType: ContinuationType.onetime.index,
       paymentType: _paymentType.index,
     );
     StaticInstances.dbprovider.newReceipt(newReceipt);
+
+    Navigator.pop(context);
+  }
+
+  RaisedButton _addRegularReceiptButton() {
+    return RaisedButton(
+      onPressed: _addRegularReceipt,
+      color: Colors.green,
+      child: Text(
+        DISPLAY_ADD,
+        style: TextStyle(fontSize: 16.9),
+      ),
+      textColor: Colors.white70,
+    );
+  }
+
+  void _addRegularReceipt() {
+    var priceVal = currencyFormat.parse(priceTextController.text);
+    var sYear = int.tryParse(startYearTextController.text);
+    var eYear = int.tryParse(endYearTextController.text);
+    var sMonth = int.tryParse(regularPaymentStartMonth);
+    var eMonth = int.tryParse(regularPaymentEndMonth);
+
+    var sDate = DateTime.utc(sYear, sMonth);
+    var eDate = DateTime.utc(eYear, eMonth + 1, 0, 23, 59, 59);
+    var newReceipt = new RegularReceipt(
+      utimeMonthFrom: sDate.millisecondsSinceEpoch,
+      utimeMonthTo: eDate.millisecondsSinceEpoch,
+      dayOfMonth: int.tryParse(paymentDayTextController.text),
+      price: priceVal.toInt(),
+      description: descriptionTextController.text,
+      paymentType: _paymentType.index,
+    );
+    StaticInstances.dbprovider.newRegularReceipt(newReceipt);
 
     Navigator.pop(context);
   }
