@@ -33,9 +33,22 @@ class ManemoDBProvider {
     return res;
   }
 
+  newRegularReceipt(RegularReceipt newReceipt) async {
+    final db = await database;
+    var res = await db.insert(tableNameRegularPayments, newReceipt.toMap());
+    return res;
+  }
+
+  deleteRegularReceipt(int id) async {
+    final db = await database;
+    var res = await db
+        .delete(tableNameRegularPayments, where: 'id = ?', whereArgs: [id]);
+    return res;
+  }
+
   Future<List<Receipt>> listReceipts(int year, int month) async {
     var firstDayOfMonth = new DateTime(year, month);
-    var lastDayOfMonth = new DateTime(year, month + 1, 0);
+    var lastDayOfMonth = new DateTime(year, month + 1, 0, 23, 59, 59);
     final db = await database;
     var res = await db.query(tableNameReceipts,
         where: 'utime >= ? and utime <= ?',
@@ -46,6 +59,23 @@ class ManemoDBProvider {
     var receipts = List<Receipt>();
     res.forEach((elem) {
       receipts.add(Receipt.fromMap(elem));
+    });
+    return receipts;
+  }
+
+  Future<List<RegularReceipt>> listRegularReceipts(int year, int month) async {
+    var firstDayOfMonth = new DateTime(year, month);
+    var lastDayOfMonth = new DateTime(year, month + 1, 0, 23, 59, 59);
+    final db = await database;
+    var res = await db.query(tableNameRegularPayments,
+        where: 'utime_month_from >= ? and utime_month_to <= ?',
+        whereArgs: [
+          firstDayOfMonth.millisecondsSinceEpoch,
+          lastDayOfMonth.millisecondsSinceEpoch
+        ]);
+    var receipts = List<RegularReceipt>();
+    res.forEach((elem) {
+      receipts.add(RegularReceipt.fromMap(elem));
     });
     return receipts;
   }
@@ -68,7 +98,7 @@ class ManemoDBProvider {
           "id INTEGER PRIMARY KEY,"
           "utime_month_from INTEGER,"
           "utime_month_to INTEGER,"
-          "day_of_month INTEGER"
+          "day_of_month INTEGER,"
           "description TEXT,"
           "price INTEGER,"
           "payment_type INTEGER"
