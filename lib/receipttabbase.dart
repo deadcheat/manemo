@@ -5,7 +5,6 @@ import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 import 'package:manemo/enum.dart' show BalanceType, PaymentType;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart'
     show DateTimePickerFormField, InputType;
-import 'package:manemo/model.dart' show Receipt;
 import 'package:manemo/const.dart';
 import 'package:manemo/model.dart';
 
@@ -675,13 +674,13 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
 
   void _addOneTimeReceipt() {
     var priceVal = currencyFormat.parse(priceTextController.text);
-    var newReceipt = new Receipt(
+    var newReceipt = new OneTimeReceipt(
       utime: paidDate.millisecondsSinceEpoch,
       price: priceVal.toInt(),
       description: descriptionTextController.text,
       paymentType: _paymentType.index,
     );
-    StaticInstances.dbprovider.newReceipt(newReceipt);
+    StaticInstances.dbprovider.newOneTimeReceipt(newReceipt);
 
     Navigator.pop(context);
   }
@@ -705,8 +704,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
     var sMonth = int.tryParse(regularPaymentStartMonth);
     var eMonth = int.tryParse(regularPaymentEndMonth);
 
-    var sDate = DateTime.utc(sYear, sMonth);
-    var eDate = DateTime.utc(eYear, eMonth + 1, 0, 23, 59, 59);
+    var sDate = DateTime(sYear, sMonth);
+    var eDate = DateTime(eYear, eMonth + 1, 0, 23, 59, 59);
     var newReceipt = new RegularReceipt(
       utimeMonthFrom: sDate.millisecondsSinceEpoch,
       utimeMonthTo: eDate.millisecondsSinceEpoch,
