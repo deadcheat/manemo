@@ -83,7 +83,7 @@ class _MonemoState extends State<Monemo> {
       ),
       body: FutureBuilder<List<Receipt>>(
         future: StaticInstances.dbprovider
-            .listReceipts(_displayDateTime.year, _displayDateTime.month),
+            .listAllReceipts(_displayDateTime.year, _displayDateTime.month),
         builder: (BuildContext context, AsyncSnapshot<List<Receipt>> snapshot) {
           _receipts = snapshot.data;
           if (_receipts == null) {
@@ -178,8 +178,10 @@ class _MonemoState extends State<Monemo> {
                                 onDismissed: (direction) {
                                   setState(() {
                                     _receipts.removeAt(index);
-                                    StaticInstances.dbprovider
-                                        .deleteReceipt(receipt.id);
+                                    StaticInstances.dbprovider.deleteReceipt(
+                                        receipt.id,
+                                        ContinuationType
+                                            .values[receipt.continuationType]);
                                   });
                                 },
                                 key: Key(receipt.id.toString()),
