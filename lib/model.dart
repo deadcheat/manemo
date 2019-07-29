@@ -1,11 +1,13 @@
 import 'dart:convert';
 
-Receipt receiptFromJson(String str) {
+import 'package:manemo/enum.dart';
+
+OneTimeReceipt receiptFromJson(String str) {
   final jsonData = json.decode(str);
-  return Receipt.fromMap(jsonData);
+  return OneTimeReceipt.fromMap(jsonData);
 }
 
-String receiptToJson(Receipt data) {
+String receiptToJson(OneTimeReceipt data) {
   final dyn = data.toMap();
   return json.encode(dyn);
 }
@@ -15,6 +17,7 @@ class Receipt {
   int utime;
   String description;
   int price;
+  int continuationType;
   int paymentType;
 
   Receipt({
@@ -22,10 +25,32 @@ class Receipt {
     this.utime,
     this.description,
     this.price,
+    this.continuationType,
     this.paymentType,
   });
 
-  factory Receipt.fromMap(Map<String, dynamic> m) => new Receipt(
+  @override
+  String toString() {
+    return super.toString();
+  }
+}
+
+class OneTimeReceipt {
+  int id;
+  int utime;
+  String description;
+  int price;
+  int paymentType;
+
+  OneTimeReceipt({
+    this.id,
+    this.utime,
+    this.description,
+    this.price,
+    this.paymentType,
+  });
+
+  factory OneTimeReceipt.fromMap(Map<String, dynamic> m) => new OneTimeReceipt(
         id: m["id"],
         utime: m["utime"],
         description: m["description"],
@@ -40,6 +65,15 @@ class Receipt {
         "price": price,
         "payment_type": paymentType,
       };
+
+  Receipt toReceipt() => new Receipt(
+        id: id,
+        utime: utime,
+        description: description,
+        continuationType: ContinuationType.onetime.index,
+        price: price,
+        paymentType: paymentType,
+      );
 
   @override
   String toString() {
@@ -95,6 +129,15 @@ class RegularReceipt {
         "price": price,
         "payment_type": paymentType,
       };
+
+  Receipt toReceipt(int year, int month) => new Receipt(
+        id: id,
+        utime: DateTime(year, month, dayOfMonth).millisecondsSinceEpoch,
+        description: description,
+        continuationType: ContinuationType.regularly.index,
+        price: price,
+        paymentType: paymentType,
+      );
 
   @override
   String toString() {
