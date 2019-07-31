@@ -706,7 +706,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
 
     var sDate = DateTime(sYear, sMonth);
     var eDate = DateTime(eYear, eMonth + 1, 0, 23, 59, 59);
-    var newReceipt = new RegularReceipt(
+    var newRegularReceipt = new RegularReceipt(
       utimeMonthFrom: sDate.millisecondsSinceEpoch,
       utimeMonthTo: eDate.millisecondsSinceEpoch,
       dayOfMonth: int.tryParse(paymentDayTextController.text),
@@ -714,7 +714,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       description: descriptionTextController.text,
       paymentType: _paymentType.index,
     );
-    StaticInstances.dbprovider.newRegularReceipt(newReceipt);
+    StaticInstances.dbprovider.newRegularReceipt(newRegularReceipt);
 
     Navigator.pop(context);
   }
