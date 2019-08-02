@@ -1,4 +1,4 @@
-import 'package:manemo/enum.dart' show PaymentType;
+import 'package:manemo/enum.dart' show PaymentType, BalanceType;
 import 'package:manemo/model.dart' show Receipt;
 
 class ReceiptViewModel {
@@ -22,12 +22,25 @@ ReceiptViewModel sumReceipts(List<Receipt> receipts) {
     }
     switch (PaymentType.values[receipt.paymentType]) {
       case PaymentType.cash:
-        result.sumOfCashPayment += receipt.price;
+        switch (BalanceType.values[receipt.balanceType]) {
+          case BalanceType.incomes:
+            result.sumOfCashPayment += receipt.price;
+            break;
+          case BalanceType.expenses:
+            result.sumOfCashPayment -= receipt.price;
+            break;
+        }
         break;
       case PaymentType.charge:
-        result.sumOfChargePayment += receipt.price;
+        switch (BalanceType.values[receipt.balanceType]) {
+          case BalanceType.incomes:
+            result.sumOfCashPayment += receipt.price;
+            break;
+          case BalanceType.expenses:
+            result.sumOfCashPayment -= receipt.price;
+            break;
+        }
         break;
-      default:
     }
   }
   return result;
