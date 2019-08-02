@@ -678,6 +678,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       utime: paidDate.millisecondsSinceEpoch,
       price: priceVal.toInt(),
       description: descriptionTextController.text,
+      balanceType: _balanceType.index,
       paymentType: _paymentType.index,
     );
     StaticInstances.dbprovider.newOneTimeReceipt(newReceipt);
@@ -712,6 +713,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       dayOfMonth: int.tryParse(paymentDayTextController.text),
       price: priceVal.toInt(),
       description: descriptionTextController.text,
+      balanceType: _balanceType.index,
       paymentType: _paymentType.index,
     );
     StaticInstances.dbprovider.newRegularReceipt(newRegularReceipt);
