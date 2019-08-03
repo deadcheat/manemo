@@ -18,6 +18,7 @@ class Receipt {
   String description;
   int price;
   int continuationType;
+  int balanceType;
   int paymentType;
 
   Receipt({
@@ -26,6 +27,7 @@ class Receipt {
     this.description,
     this.price,
     this.continuationType,
+    this.balanceType,
     this.paymentType,
   });
 
@@ -40,6 +42,7 @@ class OneTimeReceipt {
   int utime;
   String description;
   int price;
+  int balanceType;
   int paymentType;
 
   OneTimeReceipt({
@@ -47,6 +50,7 @@ class OneTimeReceipt {
     this.utime,
     this.description,
     this.price,
+    this.balanceType,
     this.paymentType,
   });
 
@@ -55,6 +59,7 @@ class OneTimeReceipt {
         utime: m["utime"],
         description: m["description"],
         price: m["price"],
+        balanceType: m["balance_type"],
         paymentType: m["payment_type"],
       );
 
@@ -63,6 +68,7 @@ class OneTimeReceipt {
         "utime": utime,
         "description": description,
         "price": price,
+        "balance_type": balanceType,
         "payment_type": paymentType,
       };
 
@@ -72,6 +78,7 @@ class OneTimeReceipt {
         description: description,
         continuationType: ContinuationType.onetime.index,
         price: price,
+        balanceType: balanceType,
         paymentType: paymentType,
       );
 
@@ -98,6 +105,7 @@ class RegularReceipt {
   int dayOfMonth;
   String description;
   int price;
+  int balanceType;
   int paymentType;
 
   RegularReceipt({
@@ -107,6 +115,7 @@ class RegularReceipt {
     this.dayOfMonth,
     this.description,
     this.price,
+    this.balanceType,
     this.paymentType,
   });
 
@@ -117,6 +126,7 @@ class RegularReceipt {
         dayOfMonth: m["day_of_month"],
         description: m["description"],
         price: m["price"],
+        balanceType: m["balance_type"],
         paymentType: m["payment_type"],
       );
 
@@ -127,6 +137,7 @@ class RegularReceipt {
         "day_of_month": dayOfMonth,
         "description": description,
         "price": price,
+        "balance_type": balanceType,
         "payment_type": paymentType,
       };
 
@@ -136,6 +147,7 @@ class RegularReceipt {
         description: description,
         continuationType: ContinuationType.regularly.index,
         price: price,
+        balanceType: balanceType,
         paymentType: paymentType,
       );
 
