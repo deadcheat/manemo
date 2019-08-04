@@ -188,29 +188,37 @@ class _MonemoState extends State<Monemo> {
                                 child: Card(
                                   child: Column(
                                     children: <Widget>[
-                                      ListTile(
-                                        leading: _paymentTypeIcon(PaymentType
-                                            .values[receipt.paymentType]),
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Expanded(
-                                                child: Text(receipt.description,
-                                                    textAlign: TextAlign.left)),
-                                            Expanded(
-                                                child: Text(
-                                                    currencyFormat
-                                                        .format(receipt.price),
-                                                    textAlign:
-                                                        TextAlign.right)),
-                                          ],
+                                      ListTileTheme(
+                                        iconColor: _listItemColor(BalanceType
+                                            .values[receipt.balanceType]),
+                                        textColor: _listItemColor(BalanceType
+                                            .values[receipt.balanceType]),
+                                        child: ListTile(
+                                          leading: _paymentTypeIcon(PaymentType
+                                              .values[receipt.paymentType]),
+                                          title: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Text(
+                                                      receipt.description,
+                                                      textAlign:
+                                                          TextAlign.left)),
+                                              Expanded(
+                                                  child: Text(
+                                                      currencyFormat.format(
+                                                          receipt.price),
+                                                      textAlign:
+                                                          TextAlign.right)),
+                                            ],
+                                          ),
+                                          subtitle: Text(_utimeToDateTimeString(
+                                              receipt.utime)),
                                         ),
-                                        subtitle: Text(_utimeToDateTimeString(
-                                            receipt.utime)),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -238,6 +246,13 @@ class _MonemoState extends State<Monemo> {
   String _utimeToDateTimeString(int utime) {
     return StaticInstances.dateFormat
         .format(DateTime.fromMillisecondsSinceEpoch(utime));
+  }
+
+  Color _listItemColor(BalanceType balanceType) {
+    if (balanceType == BalanceType.expenses) {
+      return Colors.redAccent;
+    }
+    return Colors.green;
   }
 
   Icon _paymentTypeIcon(PaymentType paymentType) {
