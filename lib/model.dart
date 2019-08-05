@@ -19,7 +19,7 @@ class Receipt {
   int price;
   int continuationType;
   int balanceType;
-  int paymentType;
+  int moneyType;
 
   Receipt({
     this.id,
@@ -28,7 +28,7 @@ class Receipt {
     this.price,
     this.continuationType,
     this.balanceType,
-    this.paymentType,
+    this.moneyType,
   });
 
   @override
@@ -43,7 +43,7 @@ class OneTimeReceipt {
   String description;
   int price;
   int balanceType;
-  int paymentType;
+  int moneyType;
 
   OneTimeReceipt({
     this.id,
@@ -51,7 +51,7 @@ class OneTimeReceipt {
     this.description,
     this.price,
     this.balanceType,
-    this.paymentType,
+    this.moneyType,
   });
 
   factory OneTimeReceipt.fromMap(Map<String, dynamic> m) => new OneTimeReceipt(
@@ -60,7 +60,7 @@ class OneTimeReceipt {
         description: m["description"],
         price: m["price"],
         balanceType: m["balance_type"],
-        paymentType: m["payment_type"],
+        moneyType: m["money_type"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -69,7 +69,7 @@ class OneTimeReceipt {
         "description": description,
         "price": price,
         "balance_type": balanceType,
-        "payment_type": paymentType,
+        "money_type": moneyType,
       };
 
   Receipt toReceipt() => new Receipt(
@@ -79,7 +79,7 @@ class OneTimeReceipt {
         continuationType: ContinuationType.onetime.index,
         price: price,
         balanceType: balanceType,
-        paymentType: paymentType,
+        moneyType: moneyType,
       );
 
   @override
@@ -106,7 +106,7 @@ class RegularReceipt {
   String description;
   int price;
   int balanceType;
-  int paymentType;
+  int moneyType;
 
   RegularReceipt({
     this.id,
@@ -116,7 +116,7 @@ class RegularReceipt {
     this.description,
     this.price,
     this.balanceType,
-    this.paymentType,
+    this.moneyType,
   });
 
   factory RegularReceipt.fromMap(Map<String, dynamic> m) => new RegularReceipt(
@@ -127,7 +127,7 @@ class RegularReceipt {
         description: m["description"],
         price: m["price"],
         balanceType: m["balance_type"],
-        paymentType: m["payment_type"],
+        moneyType: m["money_type"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -138,7 +138,7 @@ class RegularReceipt {
         "description": description,
         "price": price,
         "balance_type": balanceType,
-        "payment_type": paymentType,
+        "money_type": moneyType,
       };
 
   Receipt toReceipt(int year, int month) => new Receipt(
@@ -148,7 +148,7 @@ class RegularReceipt {
         continuationType: ContinuationType.regularly.index,
         price: price,
         balanceType: balanceType,
-        paymentType: paymentType,
+        moneyType: moneyType,
       );
 
   @override
