@@ -119,7 +119,7 @@ class ManemoDBProvider {
           "description TEXT,"
           "price INTEGER,"
           "balance_type INTEGER,"
-          "payment_type INTEGER"
+          "money_type INTEGER"
           ")");
       await db.execute(
           "CREATE INDEX IF NOT EXISTS index_list_receipts ON receipts(utime)");
@@ -131,7 +131,7 @@ class ManemoDBProvider {
           "description TEXT,"
           "price INTEGER,"
           "balance_type INTEGER,"
-          "payment_type INTEGER"
+          "money_type INTEGER"
           ")");
       await db.execute(
           "CREATE INDEX IF NOT EXISTS index_list_regular_payments ON regular_payments(utime_month_from, utime_month_to)");
