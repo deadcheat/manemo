@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show TextInputType, WhitelistingTextInputFormatter;
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
-import 'package:manemo/enum.dart' show BalanceType, PaymentType;
+import 'package:manemo/enum.dart' show BalanceType, MoneyType;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart'
     show DateTimePickerFormField, InputType;
 import 'package:manemo/const.dart';
@@ -35,12 +35,12 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
   String regularPaymentEndYear;
   String regularPaymentEndMonth;
   int regularPaymentDate;
-  PaymentType _paymentType = PaymentType.cash;
+  MoneyType _moneyType = MoneyType.cash;
   BalanceType _balanceType = BalanceType.expenses;
 
-  void _setPaymentType(PaymentType newVal) {
+  void _setMoneyType(MoneyType newVal) {
     setState(() {
-      _paymentType = newVal;
+      _moneyType = newVal;
     });
   }
 
@@ -249,10 +249,10 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           new Row(
             children: <Widget>[
               new Flexible(
-                child: new RadioListTile<PaymentType>(
-                  value: PaymentType.cash,
-                  groupValue: _paymentType,
-                  onChanged: _setPaymentType,
+                child: new RadioListTile<MoneyType>(
+                  value: MoneyType.cash,
+                  groupValue: _moneyType,
+                  onChanged: _setMoneyType,
                   title: new Text(
                     DISPLAY_WORD_CASH,
                     style: new TextStyle(fontSize: 20.0),
@@ -260,10 +260,10 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 ),
               ),
               new Flexible(
-                child: new RadioListTile<PaymentType>(
-                  value: PaymentType.charge,
-                  groupValue: _paymentType,
-                  onChanged: _setPaymentType,
+                child: new RadioListTile<MoneyType>(
+                  value: MoneyType.charge,
+                  groupValue: _moneyType,
+                  onChanged: _setMoneyType,
                   title: new Text(
                     DISPLAY_WORD_CHARGE,
                     style: new TextStyle(fontSize: 20.0),
@@ -576,10 +576,10 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           new Row(
             children: <Widget>[
               new Flexible(
-                child: new RadioListTile<PaymentType>(
-                  value: PaymentType.cash,
-                  groupValue: _paymentType,
-                  onChanged: _setPaymentType,
+                child: new RadioListTile<MoneyType>(
+                  value: MoneyType.cash,
+                  groupValue: _moneyType,
+                  onChanged: _setMoneyType,
                   title: new Text(
                     DISPLAY_WORD_CASH,
                     style: new TextStyle(fontSize: 20.0),
@@ -587,12 +587,23 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                 ),
               ),
               new Flexible(
-                child: new RadioListTile<PaymentType>(
-                  value: PaymentType.charge,
-                  groupValue: _paymentType,
-                  onChanged: _setPaymentType,
+                child: new RadioListTile<MoneyType>(
+                  value: MoneyType.charge,
+                  groupValue: _moneyType,
+                  onChanged: _setMoneyType,
                   title: new Text(
                     DISPLAY_WORD_CHARGE,
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+              new Flexible(
+                child: new RadioListTile<MoneyType>(
+                  value: MoneyType.deposit,
+                  groupValue: _moneyType,
+                  onChanged: _setMoneyType,
+                  title: new Text(
+                    DISPLAY_WORD_DEPOSIT,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
@@ -679,7 +690,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       price: priceVal.toInt(),
       description: descriptionTextController.text,
       balanceType: _balanceType.index,
-      paymentType: _paymentType.index,
+      moneyType: _moneyType.index,
     );
     StaticInstances.dbprovider.newOneTimeReceipt(newReceipt);
 
@@ -714,7 +725,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
       price: priceVal.toInt(),
       description: descriptionTextController.text,
       balanceType: _balanceType.index,
-      paymentType: _paymentType.index,
+      moneyType: _moneyType.index,
     );
     StaticInstances.dbprovider.newRegularReceipt(newRegularReceipt);
 
