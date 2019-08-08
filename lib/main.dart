@@ -194,8 +194,8 @@ class _MonemoState extends State<Monemo> {
                                         textColor: _listItemColor(BalanceType
                                             .values[receipt.balanceType]),
                                         child: ListTile(
-                                          leading: _paymentTypeIcon(PaymentType
-                                              .values[receipt.paymentType]),
+                                          leading: _moneyTypeIcon(MoneyType
+                                              .values[receipt.moneyType]),
                                           title: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -255,12 +255,14 @@ class _MonemoState extends State<Monemo> {
     return Colors.green;
   }
 
-  Icon _paymentTypeIcon(PaymentType paymentType) {
-    switch (paymentType) {
-      case PaymentType.cash:
+  Icon _moneyTypeIcon(MoneyType moneyType) {
+    switch (moneyType) {
+      case MoneyType.cash:
         return Icon(Icons.account_balance_wallet);
-      case PaymentType.charge:
+      case MoneyType.charge:
         return Icon(Icons.credit_card);
+      case MoneyType.deposit:
+        return Icon(Icons.pool);
     }
     throw Exception('Illegal payment type');
   }
