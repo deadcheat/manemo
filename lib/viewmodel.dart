@@ -4,11 +4,12 @@ import 'package:manemo/model.dart' show Receipt;
 class ReceiptViewModel {
   int sumOfCashPayment;
   int sumOfChargePayment;
-  int sumOfDepositBalance;
+  int sumOfAccountBalance;
 
   ReceiptViewModel() {
     this.sumOfCashPayment = 0;
     this.sumOfChargePayment = 0;
+    this.sumOfAccountBalance = 0;
   }
 }
 
@@ -42,13 +43,13 @@ ReceiptViewModel sumReceipts(List<Receipt> receipts) {
             break;
         }
         break;
-      case MoneyType.deposit:
+      case MoneyType.account:
         switch (BalanceType.values[receipt.balanceType]) {
           case BalanceType.incomes:
-            result.sumOfDepositBalance += receipt.price;
+            result.sumOfAccountBalance += receipt.price;
             break;
           case BalanceType.expenses:
-            result.sumOfDepositBalance -= receipt.price;
+            result.sumOfAccountBalance -= receipt.price;
             break;
         }
         break;
