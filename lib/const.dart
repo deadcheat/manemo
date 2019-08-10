@@ -10,7 +10,7 @@ const DATE_FORMAT_MM = "MM";
 const DATE_FORMAT_YYYY_MM_DD = "yyyy/MM/dd";
 
 const DISPLAY_CURRENCY_NUMBER_FORMAT = "￥ #,###";
-const DISPLAY_WORD_DEPOSIT = "Deposit";
+const DISPLAY_WORD_ACCOUNT = "Account";
 const DISPLAY_WORD_CHARGE = "Charge";
 const DISPLAY_WORD_CASH = "Cash";
 const DISPLAY_INCOMES_OR_EXPENSES = "INCOMES OR EXPENSES";
