@@ -599,11 +599,11 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               ),
               new Flexible(
                 child: new RadioListTile<MoneyType>(
-                  value: MoneyType.deposit,
+                  value: MoneyType.account,
                   groupValue: _moneyType,
                   onChanged: _setMoneyType,
                   title: new Text(
-                    DISPLAY_WORD_DEPOSIT,
+                    DISPLAY_WORD_ACCOUNT,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
