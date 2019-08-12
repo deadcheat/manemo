@@ -42,6 +42,7 @@ class _MonemoState extends State<Monemo> {
   List<Receipt> _receipts = List<Receipt>();
   String _cashSumText = '';
   String _chargeSumText = '';
+  String _accountBalanceSumText = '';
 
   @override
   void initState() {
@@ -92,6 +93,8 @@ class _MonemoState extends State<Monemo> {
           var sumResult = sumReceipts(_receipts);
           _cashSumText = currencyFormat.format(sumResult.sumOfCashPayment);
           _chargeSumText = currencyFormat.format(sumResult.sumOfChargePayment);
+          _accountBalanceSumText =
+              currencyFormat.format(sumResult.sumOfAccountBalance);
           controllButtons.removeRange(0, controllButtons.length);
           controllButtons.add(FlatButton(
             child: const Icon(
@@ -160,6 +163,19 @@ class _MonemoState extends State<Monemo> {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 30)),
                               subtitle: Text(DISPLAY_WORD_CHARGE,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(fontSize: 10)),
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.account_balance,
+                                size: 40.0,
+                                color: Colors.indigo,
+                              ),
+                              title: Text(_accountBalanceSumText,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(fontSize: 30)),
+                              subtitle: Text(DISPLAY_WORD_ACCOUNT,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(fontSize: 10)),
                             ),
@@ -261,7 +277,7 @@ class _MonemoState extends State<Monemo> {
         return Icon(Icons.account_balance_wallet);
       case MoneyType.charge:
         return Icon(Icons.credit_card);
-      case MoneyType.deposit:
+      case MoneyType.account:
         return Icon(Icons.pool);
     }
     throw Exception('Illegal payment type');
