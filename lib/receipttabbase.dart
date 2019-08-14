@@ -246,9 +246,12 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
               ),
             ),
           ),
-          new Row(
+          new Wrap(
+            alignment: WrapAlignment.start,
+            direction: Axis.horizontal,
             children: <Widget>[
-              new Flexible(
+              new SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: new RadioListTile<MoneyType>(
                   value: MoneyType.cash,
                   groupValue: _moneyType,
@@ -259,13 +262,26 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   ),
                 ),
               ),
-              new Flexible(
+              new SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: new RadioListTile<MoneyType>(
                   value: MoneyType.charge,
                   groupValue: _moneyType,
                   onChanged: _setMoneyType,
                   title: new Text(
                     DISPLAY_WORD_CHARGE,
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
+                ),
+              ),
+              new SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: new RadioListTile<MoneyType>(
+                  value: MoneyType.account,
+                  groupValue: _moneyType,
+                  onChanged: _setMoneyType,
+                  title: new Text(
+                    DISPLAY_WORD_ACCOUNT,
                     style: new TextStyle(fontSize: 20.0),
                   ),
                 ),
