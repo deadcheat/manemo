@@ -239,7 +239,7 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              DISPLAY_CASH_OR_CHARGE,
+              DISPLAY_MONEY_TYPE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
@@ -582,16 +582,19 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
           Container(
             alignment: Alignment.centerLeft,
             child: new Text(
-              DISPLAY_CASH_OR_CHARGE,
+              DISPLAY_MONEY_TYPE,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
               ),
             ),
           ),
-          new Row(
+          new Wrap(
+            alignment: WrapAlignment.start,
+            direction: Axis.horizontal,
             children: <Widget>[
-              new Flexible(
+              new SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: new RadioListTile<MoneyType>(
                   value: MoneyType.cash,
                   groupValue: _moneyType,
@@ -602,7 +605,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   ),
                 ),
               ),
-              new Flexible(
+              new SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: new RadioListTile<MoneyType>(
                   value: MoneyType.charge,
                   groupValue: _moneyType,
@@ -613,7 +617,8 @@ class _ManemoReceiptTabviewState extends State<ManemoReceiptTabview> {
                   ),
                 ),
               ),
-              new Flexible(
+              new SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
                 child: new RadioListTile<MoneyType>(
                   value: MoneyType.account,
                   groupValue: _moneyType,
