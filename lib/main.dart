@@ -278,7 +278,7 @@ class _MonemoState extends State<Monemo> {
       case MoneyType.charge:
         return Icon(Icons.credit_card);
       case MoneyType.account:
-        return Icon(Icons.pool);
+        return Icon(Icons.account_balance);
     }
     throw Exception('Illegal payment type');
   }
